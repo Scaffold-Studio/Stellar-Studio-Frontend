@@ -19,57 +19,57 @@ const steps = [
   {
     number: "01",
     title: "Connect Your Wallet",
-    description: "Connect your Stacks wallet to access all Bitcoin DeFi features",
+    description: "Connect your Freighter wallet to access all Stellar smart contract features",
     icon: Wallet,
     details: [
-      "Leather Wallet (Recommended)",
-      "Xverse Wallet",
-      "Hardware wallets support",
+      "Freighter Wallet (Recommended)",
+      "Testnet and Mainnet support",
+      "Secure transaction signing",
       "Multiple account management"
     ]
   },
   {
     number: "02",
     title: "Explore the Interface",
-    description: "Familiarize yourself with the AI-powered chat interface for Bitcoin DeFi",
+    description: "Familiarize yourself with the AI-powered chat interface for Stellar smart contracts",
     icon: MessageSquare,
     details: [
       "Natural language queries",
       "Real-time blockchain data",
-      "Smart contract interactions",
-      "Multi-protocol support"
+      "Smart contract deployment",
+      "9 plugin categories with 80+ tools"
     ]
   },
   {
     number: "03",
-    title: "Start Querying",
-    description: "Begin exploring Bitcoin DeFi with simple questions",
+    title: "Start Building",
+    description: "Begin deploying Stellar smart contracts with simple questions",
     icon: Search,
     details: [
-      "Ask about token balances",
-      "Swap tokens on DEXes",
-      "Manage lending positions",
-      "Register .btc domains"
+      "Deploy tokens with custom parameters",
+      "Create NFT collections",
+      "Set up governance contracts",
+      "Query contract states"
     ]
   }
 ];
 
 const features = [
   {
-    title: "Bitcoin DeFi Analytics",
-    description: "Get real-time insights into Stacks transactions, blocks, and Bitcoin settlement"
+    title: "Stellar Analytics",
+    description: "Get real-time insights into Stellar transactions, blocks, and 5-second finality"
   },
   {
-    title: "Multi-Protocol Tools",
-    description: "Access 148+ tools across 8 protocols: ALEX, Velar, BitFlow, Charisma, Arkadiko, Granite, BNS, Clarinet"
+    title: "Comprehensive Toolset",
+    description: "Access 80+ tools across 9 categories: Factory, Token, NFT, Governance, Registry, Token Contract, NFT Contract, Governance Contract, and Utilities"
   },
   {
-    title: "AI-Powered Queries",
-    description: "Ask questions in natural language and get intelligent Bitcoin DeFi insights"
+    title: "AI-Powered Deployment",
+    description: "Deploy complex smart contracts using natural language - no Soroban coding required"
   },
   {
-    title: "Cross-Protocol DeFi",
-    description: "Trade on DEXes, manage loans, stake assets, and register domains all in one interface"
+    title: "Smart Contract Factory",
+    description: "Deploy tokens, NFTs, and governance contracts with customizable parameters all in one interface"
   }
 ];
 
@@ -87,9 +87,9 @@ export default function GettingStartedPage() {
           <span className="text-muted-foreground">Getting Started</span>
         </Badge>
 
-        <h1 className="text-4xl font-bold mb-4">Welcome to Stacks AI</h1>
+        <h1 className="text-4xl font-bold mb-4">Welcome to Stellar Studio</h1>
         <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
-          Stacks AI is your AI-powered co-pilot for Bitcoin DeFi on Stacks.
+          Stellar Studio is your AI-powered co-pilot for deploying Stellar smart contracts.
           This guide will help you get started in just a few minutes.
         </p>
       </motion.div>
@@ -152,11 +152,11 @@ export default function GettingStartedPage() {
             Ready to start?
           </h4>
           <p className="text-muted-foreground mb-4">
-            Launch Stacks AI and connect your wallet to begin exploring Bitcoin DeFi.
+            Launch Stellar Studio and connect your Freighter wallet to begin deploying smart contracts.
           </p>
           <Button asChild>
             <Link href="/chat">
-              Launch Stacks AI
+              Launch Stellar Studio
               <ArrowRight className="ml-2 size-4" />
             </Link>
           </Button>
@@ -202,16 +202,16 @@ export default function GettingStartedPage() {
       >
         <h2 className="text-3xl font-bold mb-8">Example Queries</h2>
         <p className="text-muted-foreground mb-8 leading-relaxed">
-          Here are some example questions you can ask Stacks AI:
+          Here are some example questions you can ask Stellar Studio:
         </p>
 
         <div className="space-y-4">
           {[
-            "What's my STX balance?",
-            "Swap 100 STX for ALEX on ALEX DEX",
-            "Show me the best lending rates on Arkadiko",
-            "Register the domain bitcoin.btc for me",
-            "What are my open positions on Velar?"
+            "Deploy a new token called MyToken with symbol MTK",
+            "Create an NFT collection with royalties enabled",
+            "Set up a multisig governance contract with 3 owners",
+            "Show me all deployed tokens on testnet",
+            "What's the current state of my token contract?"
           ].map((query, index) => (
             <motion.div
               key={index}
@@ -242,11 +242,11 @@ export default function GettingStartedPage() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Link href="/docs/protocols" className="flex items-center gap-3 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+          <Link href="/docs/architecture" className="flex items-center gap-3 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
             <Code className="size-5 text-cyan-500" />
             <div>
-              <div className="font-medium">Protocol Guides</div>
-              <div className="text-sm text-muted-foreground">Learn about all 8 DeFi protocols</div>
+              <div className="font-medium">Architecture</div>
+              <div className="text-sm text-muted-foreground">Learn about the system design and MCP integration</div>
             </div>
             <ArrowRight className="size-4 ml-auto" />
           </Link>
@@ -255,7 +255,7 @@ export default function GettingStartedPage() {
             <ExternalLink className="size-5 text-cyan-500" />
             <div>
               <div className="font-medium">MCP Server</div>
-              <div className="text-sm text-muted-foreground">Advanced protocol integrations</div>
+              <div className="text-sm text-muted-foreground">Advanced MCP server integrations</div>
             </div>
             <ArrowRight className="size-4 ml-auto" />
           </Link>

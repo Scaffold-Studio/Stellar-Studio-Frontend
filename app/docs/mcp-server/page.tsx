@@ -37,7 +37,7 @@ const supportedAIs = [
   },
   {
     name: "Cursor Editor",
-    description: "AI-powered code editor with Bitcoin DeFi capabilities",
+    description: "AI-powered code editor with Stellar smart contract capabilities",
     icon: Code,
     configPath: "~/.cursor/mcp.json",
     setupCommand: "pnpm setup:cursor"
@@ -53,67 +53,79 @@ const supportedAIs = [
 
 const pluginCategories = [
   {
-    name: "ALEX Protocol",
-    description: "AMM, orderbook, and launchpad operations",
+    name: "Factory Operations",
+    description: "Master factory deployment and management",
     icon: Zap,
-    tools: 25,
-    examples: ["Swap STX for ALEX", "Check liquidity pools", "Place limit orders"]
+    tools: 1,
+    examples: ["Get all deployed factories", "Query factory addresses", "View factory metadata"]
   },
   {
-    name: "Velar DEX",
-    description: "Multi-chain DEX trading operations",
+    name: "Token Management",
+    description: "Token factory and deployment operations",
     icon: Globe,
-    tools: 20,
-    examples: ["Trade on Velar", "Manage LP positions", "Track volume"]
+    tools: 5,
+    examples: ["Deploy pausable token", "Deploy capped token", "Query deployed tokens"]
   },
   {
-    name: "BitFlow",
-    description: "Stable-focused DEX operations",
+    name: "NFT Operations",
+    description: "NFT factory and collection management",
     icon: Shield,
-    tools: 18,
-    examples: ["Swap stablecoins", "Check pool health", "Optimize yields"]
+    tools: 5,
+    examples: ["Deploy NFT collection", "Create royalties NFT", "Query NFT contracts"]
   },
   {
-    name: "Charisma",
-    description: "Composable vaults and Blaze protocol",
+    name: "Governance",
+    description: "Governance factory and voting systems",
     icon: GitBranch,
-    tools: 22,
-    examples: ["Create vault strategy", "Execute intents", "Automate farming"]
+    tools: 5,
+    examples: ["Deploy merkle voting", "Query governance contracts", "Filter by admin"]
   },
   {
-    name: "Arkadiko",
-    description: "Lending and USDA stablecoin",
+    name: "Registry",
+    description: "Contract registry and WASM management",
     icon: Database,
-    tools: 20,
-    examples: ["Mint USDA", "Manage collateral", "Track debt"]
+    tools: 6,
+    examples: ["Publish contracts", "Deploy from registry", "List published contracts"]
   },
   {
-    name: "Granite",
-    description: "Multi-collateral lending markets",
+    name: "Token Contracts",
+    description: "Direct token contract interactions",
     icon: Network,
     tools: 15,
-    examples: ["Supply assets", "Borrow funds", "Monitor health"]
+    examples: ["Transfer tokens", "Mint tokens", "Check balances"]
+  },
+  {
+    name: "NFT Contracts",
+    description: "Direct NFT contract interactions",
+    icon: Lock,
+    tools: 17,
+    examples: ["Mint NFT", "Transfer NFT", "Get owner"]
+  },
+  {
+    name: "Governance Contracts",
+    description: "Direct governance contract interactions",
+    icon: Cpu,
+    tools: 3,
+    examples: ["Cast vote", "Check vote status", "Get results"]
+  },
+  {
+    name: "Utilities",
+    description: "Helper tools and validators",
+    icon: Settings,
+    tools: 15,
+    examples: ["Generate salt", "Create merkle tree", "Validate addresses"]
   }
 ];
 
 export default function McpServerPage() {
   const configExample = `{
   "mcpServers": {
-    "stacks-mcp": {
+    "stellar-studio": {
       "command": "node",
-      "args": ["/Users/apple/dev/hackathon/stacks/stacks-mcp-server/dist/index.js"],
+      "args": ["/absolute/path/to/stellar-studio-mcp-server/dist/index.js"],
       "env": {
-        "WALLET_PRIVATE_KEY": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-        "STACKS_NETWORK": "testnet",
-        "STACKS_MAINNET_API_URL": "https://api.hiro.so",
-        "STACKS_TESTNET_API_URL": "https://api.testnet.hiro.so",
-        "BITFLOW_API_HOST": "https://api.bitflow.finance",
-        "BITFLOW_API_KEY": "placeholder_key_request_from_bitflow_team",
-        "BITFLOW_PROVIDER_ADDRESS": "placeholder_address",
-        "READONLY_CALL_API_HOST": "https://api.bitflow.finance",
-        "READONLY_CALL_API_KEY": "placeholder_key",
-        "KEEPER_API_HOST": "https://keeper.bitflow.finance",
-        "KEEPER_API_KEY": "placeholder_key"
+        "STELLAR_SECRET_KEY": "SD...",
+        "STELLAR_NETWORK": "testnet"
       }
     }
   }
@@ -134,24 +146,26 @@ export default function McpServerPage() {
         </Badge>
 
         <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-          Stacks MCP Server
+          Stellar Studio MCP Server
         </h1>
         <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl mb-8">
-          The Model Context Protocol server that brings Bitcoin DeFi operations to Claude Desktop, Cursor, and VS Code.
-          Stop visiting websites - start talking to Bitcoin DeFi through your favorite AI assistant.
+          The Model Context Protocol server that brings Stellar smart contract deployment to Claude Desktop, Cursor, and VS Code.
+          Stop navigating complex interfaces - start deploying smart contracts through your favorite AI assistant.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
           <Button size="lg" asChild className="text-lg px-8 py-6">
-            <Link href="https://github.com/Stack-AI-MCP/stacks-mcp-server" target="_blank">
+            <Link href="https://github.com/Scaffold-Studio/Stellar-Studio-MCP" target="_blank">
               <Download className="mr-2 size-5" />
               Get MCP Server
               <ExternalLink className="ml-2 size-4" />
             </Link>
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-            <BookOpen className="mr-2 size-5" />
-            Quick Start Guide
+          <Button variant="outline" size="lg" asChild className="text-lg px-8 py-6">
+            <Link href="/docs/getting-started">
+              <BookOpen className="mr-2 size-5" />
+              Quick Start Guide
+            </Link>
           </Button>
         </div>
       </motion.div>
@@ -166,20 +180,20 @@ export default function McpServerPage() {
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
           <Brain className="size-8 text-cyan-500" />
-          The Future of Bitcoin DeFi
+          The Future of Stellar Smart Contracts
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              Stacks MCP Server enables AI assistants to interact directly with Bitcoin DeFi through natural language.
-              Instead of navigating complex DApps, users simply tell their AI what they want to do.
+              Stellar Studio MCP Server enables AI assistants to deploy Stellar smart contracts through natural language.
+              Instead of writing Soroban code, users simply tell their AI what they want to deploy.
             </p>
 
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Check className="size-5 text-green-500" />
-                <span>148+ Bitcoin DeFi operation tools</span>
+                <span>80+ smart contract deployment tools</span>
               </div>
               <div className="flex items-center gap-3">
                 <Check className="size-5 text-green-500" />
@@ -187,11 +201,11 @@ export default function McpServerPage() {
               </div>
               <div className="flex items-center gap-3">
                 <Check className="size-5 text-green-500" />
-                <span>Natural language blockchain operations</span>
+                <span>Natural language contract deployment</span>
               </div>
               <div className="flex items-center gap-3">
                 <Check className="size-5 text-green-500" />
-                <span>8 DeFi protocols integrated</span>
+                <span>9 plugin categories integrated</span>
               </div>
             </div>
           </div>
@@ -200,13 +214,13 @@ export default function McpServerPage() {
             <h3 className="text-xl font-semibold mb-4">Example Conversation</h3>
             <div className="space-y-3 text-sm">
               <div className="bg-blue-500/10 p-3 rounded-lg">
-                <span className="font-medium text-blue-400">You:</span> "Swap 100 STX for ALEX on ALEX DEX"
+                <span className="font-medium text-blue-400">You:</span> "Deploy a new token called MyToken with symbol MTK"
               </div>
               <div className="bg-green-500/10 p-3 rounded-lg">
-                <span className="font-medium text-green-400">Claude:</span> "I'll help you swap 100 STX for ALEX. Let me check the current exchange rate..."
+                <span className="font-medium text-green-400">Claude:</span> "I'll help you deploy a new token. Let me set up the parameters..."
               </div>
               <div className="bg-purple-500/10 p-3 rounded-lg">
-                <span className="font-medium text-purple-400">Result:</span> "Transaction successful! You received 450.23 ALEX tokens."
+                <span className="font-medium text-purple-400">Result:</span> "Token deployed successfully! Contract address: CABS..."
               </div>
             </div>
           </Card>
@@ -275,7 +289,7 @@ export default function McpServerPage() {
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
           <GitBranch className="size-8 text-cyan-500" />
-          Protocol Operation Categories
+          Plugin Categories
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -340,8 +354,8 @@ export default function McpServerPage() {
               <div className="bg-muted/30 border rounded-lg p-4 overflow-x-auto">
                 <pre className="text-sm font-mono leading-relaxed">
                   <code className="text-foreground">
-{`git clone https://github.com/Stack-AI-MCP/stacks-mcp-server
-cd stacks-mcp-server
+{`git clone https://github.com/Scaffold-Studio/Stellar-Studio-MCP
+cd Stellar-Studio-MCP
 pnpm install && pnpm build
 cp .env.example .env`}
                     <span className="text-cyan-500 font-semibold">
@@ -439,8 +453,8 @@ pnpm setup`}
               <div className="flex items-start gap-3">
                 <Check className="size-4 text-green-500 mt-0.5" />
                 <div>
-                  <div className="font-medium">Bitcoin Security</div>
-                  <div className="text-sm text-muted-foreground">All transactions settle with Bitcoin finality</div>
+                  <div className="font-medium">Stellar Security</div>
+                  <div className="text-sm text-muted-foreground">All transactions benefit from 5-second finality</div>
                 </div>
               </div>
             </div>
@@ -469,8 +483,8 @@ pnpm setup`}
               <div className="flex items-start gap-3">
                 <Check className="size-4 text-blue-500 mt-0.5" />
                 <div>
-                  <div className="font-medium">Stacks Wallet</div>
-                  <div className="text-sm text-muted-foreground">Leather or Xverse wallet required</div>
+                  <div className="font-medium">Freighter Wallet</div>
+                  <div className="text-sm text-muted-foreground">Freighter wallet required for Stellar</div>
                 </div>
               </div>
             </div>
@@ -487,15 +501,15 @@ pnpm setup`}
         className="text-center"
       >
         <Card className="p-8 bg-gradient-to-r from-cyan-500/10 to-cyan-500/5 border-cyan-500/20">
-          <h2 className="text-3xl font-bold mb-4">Ready for Bitcoin DeFi via AI?</h2>
+          <h2 className="text-3xl font-bold mb-4">Ready for Stellar Smart Contracts via AI?</h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Install Stacks MCP Server and experience Bitcoin DeFi operations through natural conversation.
-            Built for the Stacks Vibe Coding Hackathon 2025.
+            Install Stellar Studio MCP Server and deploy Stellar smart contracts through natural conversation.
+            No Soroban coding required.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="text-lg px-8 py-6">
-              <Link href="https://github.com/Stack-AI-MCP/stacks-mcp-server" target="_blank">
+              <Link href="https://github.com/Scaffold-Studio/Stellar-Studio-MCP" target="_blank">
                 <Download className="mr-2 size-5" />
                 Download MCP Server
                 <ExternalLink className="ml-2 size-4" />

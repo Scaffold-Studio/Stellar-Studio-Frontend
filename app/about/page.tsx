@@ -29,16 +29,15 @@ export default function AboutPage() {
             </Badge>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-text-primary">
-              Making Blockchain <br />
+              Deploy Stellar Smart Contracts <br />
               <span className="bg-gradient-to-r from-[#0085FF] to-[#AB78FF] bg-clip-text text-transparent">
-                Accessible to Everyone
+                Through Conversation
               </span>
             </h1>
 
             <p className="text-xl text-text-secondary mb-8 max-w-3xl mx-auto leading-relaxed">
-              Blockchain development shouldn't require years of coding experience.
-              Stellar Studio brings AI-powered contract deployment to everyone —
-              as simple as having a conversation.
+              No Soroban coding required. Stellar Studio is an AI-powered platform that lets you deploy
+              tokens, NFTs, and governance contracts using natural language — powered by the Model Context Protocol.
             </p>
 
             <Button size="lg" asChild className="bg-gradient-to-r from-[#0085FF] to-[#AB78FF] hover:opacity-90 text-white border-0 text-lg px-8 py-6 shadow-glow-blue">
@@ -61,11 +60,11 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">The Problem We're Solving</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">What is Stellar Studio?</h2>
             <p className="text-xl text-text-muted leading-relaxed">
-              Stellar is revolutionizing global finance — serving the underbanked, enabling cross-border payments, 
-              and powering real-world asset tokenization. But deploying smart contracts on Stellar requires 
-              technical expertise that most people don't have. Stellar Studio changes that.
+              Stellar Studio is a Model Context Protocol (MCP) server and web interface that enables AI assistants
+              like Claude to deploy and interact with Stellar smart contracts. Instead of writing Soroban code,
+              you simply describe what you want to build in natural language.
             </p>
           </motion.div>
 
@@ -78,10 +77,10 @@ export default function AboutPage() {
               className="p-8 border border-border rounded-xl bg-card text-center hover:border-primary/30 transition-all"
             >
               <Brain className="size-12 text-primary mb-4 mx-auto" />
-              <h3 className="text-xl font-semibold mb-3 text-text-primary">AI-Powered</h3>
+              <h3 className="text-xl font-semibold mb-3 text-text-primary">MCP-Powered</h3>
               <p className="text-text-muted">
-                Natural language understanding powered by advanced AI. Describe what you want to build, 
-                and we handle the technical complexity.
+                Built on the Model Context Protocol, enabling AI assistants to execute 80+ blockchain
+                operations through natural language commands.
               </p>
             </motion.div>
 
@@ -93,10 +92,10 @@ export default function AboutPage() {
               className="p-8 border border-border rounded-xl bg-card text-center hover:border-primary/30 transition-all"
             >
               <Lock className="size-12 text-primary mb-4 mx-auto" />
-              <h3 className="text-xl font-semibold mb-3 text-text-primary">Non-Custodial</h3>
+              <h3 className="text-xl font-semibold mb-3 text-text-primary">Factory Pattern</h3>
               <p className="text-text-muted">
-                Your keys, your assets. We never store private keys or have access to your funds. 
-                Complete sovereignty over your blockchain assets.
+                Utilizes factory contracts to deploy standardized, audited tokens, NFTs, and governance
+                systems with customizable parameters.
               </p>
             </motion.div>
 
@@ -108,10 +107,10 @@ export default function AboutPage() {
               className="p-8 border border-border rounded-xl bg-card text-center hover:border-primary/30 transition-all"
             >
               <Globe2 className="size-12 text-primary mb-4 mx-auto" />
-              <h3 className="text-xl font-semibold mb-3 text-text-primary">Built on Stellar</h3>
+              <h3 className="text-xl font-semibold mb-3 text-text-primary">Multi-Client Support</h3>
               <p className="text-text-muted">
-                Leveraging Stellar's 5-second finality, low fees, and global reach. 
-                Deploy contracts that can serve billions of people worldwide.
+                Works seamlessly with Claude Desktop, Cursor IDE, and VS Code. Deploy contracts
+                directly from your favorite development environment.
               </p>
             </motion.div>
           </div>
@@ -128,9 +127,9 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">Our Vision</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">How It Works</h2>
             <p className="text-xl text-text-muted">
-              Democratizing blockchain development for the next billion users
+              A three-layer architecture connecting AI to blockchain
             </p>
           </motion.div>
 
@@ -145,10 +144,10 @@ export default function AboutPage() {
               <div className="flex items-start gap-4">
                 <Shield className="size-8 text-primary mt-1 shrink-0" />
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-text-primary">Accessible Development</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-text-primary">1. AI Interface</h3>
                   <p className="text-text-muted">
-                    No coding required. Deploy production-ready smart contracts through conversation. 
-                    Making blockchain development accessible to entrepreneurs, creators, and businesses.
+                    You describe your smart contract needs in natural language through Claude Desktop,
+                    Cursor, or the web interface.
                   </p>
                 </div>
               </div>
@@ -156,10 +155,10 @@ export default function AboutPage() {
               <div className="flex items-start gap-4">
                 <Zap className="size-8 text-primary mt-1 shrink-0" />
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-text-primary">Lightning Fast</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-text-primary">2. MCP Server</h3>
                   <p className="text-text-muted">
-                    Stellar's 5-second finality means your contracts deploy in real-time. 
-                    From idea to deployment in minutes, not days.
+                    The MCP server translates your intent into one of 80+ blockchain operation tools,
+                    validating parameters and building transactions.
                   </p>
                 </div>
               </div>
@@ -175,10 +174,10 @@ export default function AboutPage() {
               <div className="flex items-start gap-4">
                 <Code2 className="size-8 text-primary mt-1 shrink-0" />
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-text-primary">Production Ready</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-text-primary">3. Stellar Network</h3>
                   <p className="text-text-muted">
-                    Deploy tokens, NFTs, and governance systems that are production-ready. 
-                    All contracts are tested, secure, and follow Stellar best practices.
+                    Transactions are simulated, signed, and submitted to Stellar's Soroban smart contract
+                    platform with 5-second finality.
                   </p>
                 </div>
               </div>
@@ -186,10 +185,10 @@ export default function AboutPage() {
               <div className="flex items-start gap-4">
                 <Users className="size-8 text-primary mt-1 shrink-0" />
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-text-primary">For Everyone</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-text-primary">4. Contract Deployment</h3>
                   <p className="text-text-muted">
-                    Whether you're building a token for your community, launching an NFT collection, 
-                    or creating a DAO — Stellar Studio makes it possible.
+                    Your token, NFT, or governance contract is deployed using factory patterns,
+                    returning the contract address for immediate use.
                   </p>
                 </div>
               </div>
@@ -208,11 +207,9 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">Why Stellar?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">Technology Stack</h2>
             <p className="text-xl text-text-muted leading-relaxed">
-              Stellar connects the world's financial infrastructure, enabling instant, low-cost 
-              cross-border transactions. With partnerships like UNHCR and MoneyGram, 
-              Stellar is bringing financial services to the underbanked worldwide.
+              Built with modern tools and protocols for reliable, type-safe smart contract deployment.
             </p>
           </motion.div>
 
@@ -228,24 +225,28 @@ export default function AboutPage() {
             
             <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-bold mb-4 text-text-primary">Real-World Impact</h3>
+                <h3 className="text-2xl font-bold mb-4 text-text-primary">Core Technologies</h3>
                 <p className="text-text-muted mb-6 leading-relaxed">
-                  Stellar isn't just theory — it's actively serving millions of people. 
-                  UNHCR uses Stellar to distribute aid to refugees. MoneyGram enables 
-                  instant cash pickup worldwide. Over $3B in Real-World Assets expected by 2025.
+                  Stellar Studio combines MCP, Stellar SDK, and Soroban smart contracts to provide
+                  a seamless development experience. TypeScript throughout ensures type safety from
+                  frontend to blockchain.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center gap-2 text-text-secondary">
                     <div className="size-2 bg-success rounded-full"></div>
-                    Reaching 1.4 billion people globally
+                    Model Context Protocol (MCP) 1.0
                   </li>
                   <li className="flex items-center gap-2 text-text-secondary">
                     <div className="size-2 bg-success rounded-full"></div>
-                    5-second transaction finality
+                    Stellar JavaScript SDK v14.1.1
                   </li>
                   <li className="flex items-center gap-2 text-text-secondary">
                     <div className="size-2 bg-success rounded-full"></div>
-                    Minimal transaction fees
+                    Soroban Smart Contracts v22
+                  </li>
+                  <li className="flex items-center gap-2 text-text-secondary">
+                    <div className="size-2 bg-success rounded-full"></div>
+                    Next.js 15 + React 19
                   </li>
                 </ul>
               </div>
@@ -274,11 +275,11 @@ export default function AboutPage() {
             className="max-w-3xl mx-auto"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">
-              Ready to Build on Stellar?
+              Ready to Try Stellar Studio?
             </h2>
             <p className="text-xl text-text-muted mb-8">
-              Join the future of accessible blockchain development. 
-              Deploy your first smart contract in the next 5 minutes.
+              Deploy your first Stellar smart contract through natural language.
+              No Soroban coding required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="bg-gradient-stellar hover:opacity-90 text-white border-0 text-lg px-8 py-6">

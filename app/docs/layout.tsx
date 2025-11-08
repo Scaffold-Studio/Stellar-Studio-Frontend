@@ -33,13 +33,6 @@ const docsNavigation = [
     badge: undefined as string | undefined
   },
   {
-    name: "Examples",
-    href: "/docs/examples",
-    icon: Terminal,
-    description: "Example queries and deployment tutorials",
-    badge: undefined as string | undefined
-  },
-  {
     name: "MCP Server",
     href: "/docs/mcp-server",
     icon: Server,

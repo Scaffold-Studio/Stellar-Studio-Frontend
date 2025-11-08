@@ -16,7 +16,7 @@ export function PageHeader() {
           <NavbarLeft>
             <Link href="/" className="flex items-center gap-1.5 sm:gap-2 text-base sm:text-xl font-bold">
               <Image
-                src="/images/stellar-logo.svg"
+                src="/images/stellar-studio.jpeg"
                 alt="Stellar Studio"
                 width={24}
                 height={24}

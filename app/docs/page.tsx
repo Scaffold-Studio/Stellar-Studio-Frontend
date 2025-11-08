@@ -57,29 +57,22 @@ const featuredSections = [
     badge: "Technical"
   },
   {
-    name: "Examples",
-    href: "/docs/examples",
-    icon: Code,
-    description: "Explore example queries and learn how to deploy tokens, NFTs, and governance contracts.",
-    badge: "Essential"
-  },
-  {
     name: "MCP Server",
     href: "/docs/mcp-server",
     icon: Server,
     description: "Set up and configure the Model Context Protocol server for Stellar contract operations.",
     badge: "Advanced"
-  }
-];
-
-const allSections = [
+  },
   {
     name: "FAQ",
     href: "/docs/faq",
     icon: HelpCircle,
-    description: "Common questions and troubleshooting tips"
+    description: "Common questions and troubleshooting tips for using Stellar Studio.",
+    badge: "Essential"
   }
 ];
+
+const allSections: any[] = [];
 
 export default function DocsPage() {
   return (
@@ -203,38 +196,6 @@ export default function DocsPage() {
         </div>
       </motion.section>
 
-      {/* All Sections */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        viewport={{ once: true }}
-        className="mb-16"
-      >
-        <h2 className="text-3xl font-bold mb-8 text-center">Browse All Documentation</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {allSections.map((section, index) => {
-            const Icon = section.icon;
-            return (
-              <motion.div
-                key={section.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 + index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Link href={section.href} className="block p-6 border border-border-primary rounded-xl bg-bg-secondary/50 backdrop-blur-sm hover:bg-bg-secondary/70 transition-all duration-300 h-full text-center">
-                  <Icon className="size-8 text-[#0085FF] mx-auto mb-4" />
-                  <h3 className="font-semibold text-lg mb-3 text-text-primary">{section.name}</h3>
-                  <p className="text-text-tertiary text-sm leading-relaxed">
-                    {section.description}
-                  </p>
-                </Link>
-              </motion.div>
-            );
-          })}
-        </div>
-      </motion.section>
 
       {/* Help Section */}
       <motion.section

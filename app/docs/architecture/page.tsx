@@ -11,133 +11,138 @@ import {
   Zap,
   Code,
   Layers,
-  GitBranch,
   Server,
-  Cloud,
   Lock,
   ArrowRight,
   Check,
   Cpu,
   Network,
-  Workflow
+  Workflow,
+  Factory
 } from "lucide-react";
 
 const architecturePhases = [
   {
     layer: "Presentation Layer",
-    description: "Next.js 15 App Router with React 19 providing modern SSR/SSG for Bitcoin DeFi",
+    description: "Next.js 15 App Router with React 19 providing modern SSR for Stellar dApp development",
     icon: Globe,
-    color: "bg-cyan-500/10 text-cyan-500 border-cyan-500/20",
+    color: "bg-[#0085FF]/10 text-[#0085FF] border-[#0085FF]/20",
     components: [
       "Next.js App Router",
       "React Server Components",
-      "Static Generation",
-      "Incremental Regeneration",
-      "Edge Runtime Support"
-    ]
-  },
-  {
-    layer: "UI/UX Layer",
-    description: "Component-driven architecture with Tailwind CSS and smooth animations",
-    icon: Layers,
-    color: "bg-purple-500/10 text-purple-500 border-purple-500/20",
-    components: [
-      "Radix UI Primitives",
-      "Tailwind CSS Utilities",
-      "Framer Motion Animations",
-      "Dark/Light Theme System",
-      "Responsive Design Patterns"
+      "Tailwind CSS",
+      "Framer Motion",
+      "Dark/Light Theme"
     ]
   },
   {
     layer: "AI Integration Layer",
-    description: "MCP server with 148+ Bitcoin DeFi operation tools across 8 protocols",
+    description: "MCP server with 80+ Stellar Soroban operation tools across 9 plugins",
     icon: Brain,
-    color: "bg-green-500/10 text-green-500 border-green-500/20",
+    color: "bg-[#AB78FF]/10 text-[#AB78FF] border-[#AB78FF]/20",
     components: [
       "Model Context Protocol",
       "Claude AI Integration",
-      "Tool Registry System",
+      "Tool Registry (80+ tools)",
       "Streaming Responses",
       "Context-Aware Processing"
     ]
   },
   {
     layer: "Blockchain Layer",
-    description: "Stacks SDK integration with wallet connectivity and Bitcoin finality",
+    description: "Stellar SDK integration with Freighter wallet and Soroban smart contracts",
     icon: Shield,
-    color: "bg-orange-500/10 text-orange-500 border-orange-500/20",
+    color: "bg-stellar-blue/10 text-stellar-blue border-stellar-blue/20",
     components: [
-      "Leather Wallet Connect",
-      "Xverse Wallet Support",
-      "Stacks.js Client",
-      "Clarity Contract Calls",
-      "Bitcoin Settlement"
+      "Freighter Wallet Connect",
+      "Stellar SDK",
+      "Soroban Contract Calls",
+      "5-Second Finality",
+      "Testnet/Mainnet Support"
+    ]
+  },
+  {
+    layer: "Smart Contract Layer",
+    description: "Factory contracts for deploying tokens, NFTs, and governance on Stellar",
+    icon: Factory,
+    color: "bg-success/10 text-success border-success/20",
+    components: [
+      "Token Factory",
+      "NFT Factory",
+      "Governance Factory",
+      "Contract Registry",
+      "TypeScript Clients"
     ]
   },
   {
     layer: "Data & Storage Layer",
-    description: "Multi-database architecture with caching and protocol API integrations",
+    description: "Database architecture with user sessions and chat history",
     icon: Database,
-    color: "bg-red-500/10 text-red-500 border-red-500/20",
+    color: "bg-warning/10 text-warning border-warning/20",
     components: [
       "Drizzle ORM",
       "PostgreSQL/SQLite",
-      "Redis Caching",
-      "Vercel Blob Storage",
-      "Protocol API Gateway"
+      "User Authentication",
+      "Chat History",
+      "Transaction Records"
     ]
   }
 ];
 
 const toolCategories = [
   {
-    category: "ALEX Protocol",
-    count: 25,
-    description: "AMM, Orderbook, and Launchpad operations",
-    tools: ["Token Swaps", "Liquidity Pools", "Order Management", "Yield Farming"]
+    category: "Factory Operations",
+    count: 1,
+    description: "Get deployed factory contracts",
+    tools: ["Factory Tracking"]
   },
   {
-    category: "Velar DEX",
-    count: 20,
-    description: "Multi-chain DEX and liquidity management",
-    tools: ["Cross-chain Swaps", "LP Positions", "Fee Analysis", "Volume Tracking"]
+    category: "Token Deployment",
+    count: 5,
+    description: "Deploy and query tokens via TokenFactory",
+    tools: ["Deploy Token", "List Tokens", "Filter by Type", "Filter by Admin", "Token Count"]
   },
   {
-    category: "BitFlow",
-    count: 18,
-    description: "Stable-focused DEX operations",
-    tools: ["Stablecoin Swaps", "Pool Analytics", "Yield Optimization", "Stability Metrics"]
+    category: "NFT Deployment",
+    count: 5,
+    description: "Deploy and query NFT collections via NFTFactory",
+    tools: ["Deploy NFT", "List NFTs", "Filter by Type", "Filter by Owner", "NFT Count"]
   },
   {
-    category: "Charisma",
-    count: 22,
-    description: "Composable vaults and Blaze protocol",
-    tools: ["Vault Management", "Blaze Intents", "Yield Strategies", "Composability"]
+    category: "Governance",
+    count: 5,
+    description: "Deploy and query governance contracts",
+    tools: ["Deploy Governance", "List Governance", "Filter by Type", "Filter by Admin", "Governance Count"]
   },
   {
-    category: "Arkadiko",
-    count: 20,
-    description: "Lending and USDA stablecoin protocol",
-    tools: ["Collateral Management", "Loan Operations", "USDA Minting", "Liquidations"]
+    category: "Registry",
+    count: 6,
+    description: "Publish and deploy contracts via Stellar Registry",
+    tools: ["Publish Contract", "Deploy Contract", "Create Alias", "List Published", "Get Versions", "Contract Info"]
   },
   {
-    category: "Granite",
+    category: "Token Operations",
     count: 15,
-    description: "Multi-collateral lending markets",
-    tools: ["Supply Assets", "Borrow Operations", "Interest Rates", "Health Factor"]
+    description: "Token contract operations",
+    tools: ["Transfer", "Mint", "Burn", "Approve", "Balance", "Total Supply", "Pause/Unpause"]
   },
   {
-    category: "BNS",
-    count: 18,
-    description: "Bitcoin Name Service for .btc domains",
-    tools: ["Domain Registration", "Name Resolution", "Transfers", "Renewals"]
+    category: "NFT Operations",
+    count: 17,
+    description: "NFT contract operations",
+    tools: ["Mint", "Transfer", "Burn", "Approve", "Owner Of", "Token URI", "Total Supply"]
   },
   {
-    category: "Clarinet",
-    count: 10,
-    description: "Smart contract development and testing",
-    tools: ["Contract Deploy", "Testing Framework", "Console Access", "Debugging"]
+    category: "Governance Voting",
+    count: 3,
+    description: "MerkleVoting operations",
+    tools: ["Cast Vote", "Check Voted", "Get Results"]
+  },
+  {
+    category: "Utilities",
+    count: 15,
+    description: "Helper functions and builders",
+    tools: ["Merkle Trees", "Validation", "Config Builders", "Amount Formatting", "Salt Generation"]
   }
 ];
 
@@ -154,24 +159,24 @@ const techStack = [
     category: "AI & MCP",
     technologies: [
       { name: "MCP SDK", version: "1.0.0", description: "Model Context Protocol integration" },
-      { name: "Claude", version: "Latest", description: "AI models for DeFi context" },
-      { name: "Tool Registry", version: "Custom", description: "148+ Bitcoin DeFi tools" }
+      { name: "Claude", version: "Latest", description: "AI models for Soroban context" },
+      { name: "Tool Registry", version: "Custom", description: "80+ Stellar tools" }
     ]
   },
   {
     category: "Blockchain",
     technologies: [
-      { name: "Stacks.js", version: "Latest", description: "Official Stacks SDK" },
-      { name: "Leather Wallet", version: "Latest", description: "Primary wallet integration" },
-      { name: "Clarity", version: "2.0", description: "Smart contract language" }
+      { name: "Stellar SDK", version: "14.1.1", description: "Official Stellar JavaScript SDK" },
+      { name: "Freighter", version: "Latest", description: "Stellar wallet integration" },
+      { name: "Soroban", version: "22", description: "Stellar smart contract platform" }
     ]
   },
   {
     category: "Database & Storage",
     technologies: [
-      { name: "Drizzle ORM", version: "0.34.0", description: "Type-safe database operations" },
+      { name: "Drizzle ORM", version: "Latest", description: "Type-safe database operations" },
       { name: "PostgreSQL", version: "Latest", description: "Production database" },
-      { name: "Redis", version: "5.0.0", description: "Caching and sessions" }
+      { name: "SQLite", version: "Latest", description: "Development database" }
     ]
   }
 ];
@@ -191,13 +196,13 @@ export default function ArchitecturePage() {
           <span className="text-muted-foreground">System Architecture</span>
         </Badge>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-          Bitcoin DeFi Architecture
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#0085FF] to-[#AB78FF] bg-clip-text text-transparent">
+          Stellar Studio Architecture
         </h1>
         <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl">
-          Stacks AI employs a sophisticated multi-layer architecture designed for the Bitcoin DeFi era.
-          Our system combines modern web technologies, AI processing via MCP, and Stacks blockchain integration
-          to deliver conversational Bitcoin DeFi operations at scale.
+          Stellar Studio employs a sophisticated multi-layer architecture designed for conversational
+          smart contract deployment on Stellar. Our system combines modern web technologies, AI processing
+          via MCP, and Soroban contract integration to deliver production-ready dApps at scale.
         </p>
       </motion.div>
 
@@ -210,7 +215,7 @@ export default function ArchitecturePage() {
         className="mb-20"
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Workflow className="size-8 text-cyan-500" />
+          <Workflow className="size-8 text-[#0085FF]" />
           System Overview
         </h2>
 
@@ -220,45 +225,45 @@ export default function ArchitecturePage() {
               <div className="p-6 border rounded-xl bg-card/50">
                 <h3 className="text-xl font-semibold mb-3">Conversational Interface</h3>
                 <p className="text-muted-foreground">
-                  Natural language processing transforms user intent into Bitcoin DeFi operations through
-                  our MCP-powered tool registry with 148+ specialized functions across 8 protocols.
+                  Natural language processing transforms user intent into Stellar Soroban operations through
+                  our MCP-powered tool registry with 80+ specialized functions across 9 plugins.
                 </p>
               </div>
 
               <div className="p-6 border rounded-xl bg-card/50">
-                <h3 className="text-xl font-semibold mb-3">Real-time Processing</h3>
+                <h3 className="text-xl font-semibold mb-3">Lightning Fast Deployment</h3>
                 <p className="text-muted-foreground">
-                  Streaming AI responses with progressive data loading ensure immediate feedback
-                  while complex blockchain operations execute with Bitcoin finality guarantees.
+                  Streaming AI responses with Stellar's 5-second finality ensure immediate feedback
+                  while smart contract deployments complete in real-time.
                 </p>
               </div>
 
               <div className="p-6 border rounded-xl bg-card/50">
-                <h3 className="text-xl font-semibold mb-3">Enterprise Security</h3>
+                <h3 className="text-xl font-semibold mb-3">Production Ready</h3>
                 <p className="text-muted-foreground">
-                  Client-side wallet integration, secure transaction signing with Clarity, and comprehensive
-                  input validation protect user assets and data integrity.
+                  Client-side wallet integration, secure transaction signing, and factory-based
+                  deployment ensure production-ready contracts with Stellar best practices.
                 </p>
               </div>
             </div>
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-transparent rounded-2xl blur-3xl"></div>
-            <Card className="relative p-8 bg-card/80 backdrop-blur border-cyan-500/20">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0085FF]/20 to-transparent rounded-2xl blur-3xl"></div>
+            <Card className="relative p-8 bg-card/80 backdrop-blur border-[#0085FF]/20">
               <div className="text-center space-y-6">
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="p-4 bg-cyan-500/10 rounded-xl">
-                    <Globe className="size-8 text-cyan-500 mx-auto mb-2" />
+                  <div className="p-4 bg-[#0085FF]/10 rounded-xl">
+                    <Globe className="size-8 text-[#0085FF] mx-auto mb-2" />
                     <div className="text-sm font-medium">Web Frontend</div>
                   </div>
-                  <div className="p-4 bg-cyan-500/10 rounded-xl">
-                    <Brain className="size-8 text-cyan-500 mx-auto mb-2" />
+                  <div className="p-4 bg-[#0085FF]/10 rounded-xl">
+                    <Brain className="size-8 text-[#0085FF] mx-auto mb-2" />
                     <div className="text-sm font-medium">MCP Server</div>
                   </div>
-                  <div className="p-4 bg-cyan-500/10 rounded-xl">
-                    <Shield className="size-8 text-cyan-500 mx-auto mb-2" />
-                    <div className="text-sm font-medium">Stacks SDK</div>
+                  <div className="p-4 bg-[#0085FF]/10 rounded-xl">
+                    <Shield className="size-8 text-[#0085FF] mx-auto mb-2" />
+                    <div className="text-sm font-medium">Stellar SDK</div>
                   </div>
                 </div>
 
@@ -266,9 +271,9 @@ export default function ArchitecturePage() {
                   <ArrowRight className="size-6 text-muted-foreground" />
                 </div>
 
-                <div className="p-4 bg-gradient-to-r from-cyan-500/20 to-cyan-500/10 rounded-xl">
-                  <Zap className="size-10 text-cyan-500 mx-auto mb-2" />
-                  <div className="font-semibold">Conversational Bitcoin DeFi</div>
+                <div className="p-4 bg-gradient-to-r from-[#0085FF]/20 to-[#AB78FF]/10 rounded-xl">
+                  <Zap className="size-10 text-[#0085FF] mx-auto mb-2" />
+                  <div className="font-semibold">Conversational Soroban Development</div>
                 </div>
               </div>
             </Card>
@@ -285,7 +290,7 @@ export default function ArchitecturePage() {
         className="mb-20"
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Layers className="size-8 text-cyan-500" />
+          <Layers className="size-8 text-[#0085FF]" />
           Architecture Layers
         </h2>
 
@@ -343,18 +348,18 @@ export default function ArchitecturePage() {
         className="mb-20"
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Cpu className="size-8 text-cyan-500" />
+          <Cpu className="size-8 text-[#0085FF]" />
           MCP Tool Registry
         </h2>
 
         <div className="mb-8">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Our MCP server leverages 148+ specialized tools organized across 8 Bitcoin DeFi protocols.
-            Each tool is designed for specific protocol operations with intelligent error handling and validation.
+            Our MCP server leverages 80+ specialized tools organized across 9 plugins for Stellar Soroban operations.
+            Each tool is designed for specific factory and contract operations with intelligent error handling and validation.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {toolCategories.map((category, index) => (
             <motion.div
               key={category.category}
@@ -367,7 +372,7 @@ export default function ArchitecturePage() {
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-semibold">{category.category}</h3>
                 <Badge variant="outline" className="text-xs">
-                  {category.count} tools
+                  {category.count} {category.count === 1 ? 'tool' : 'tools'}
                 </Badge>
               </div>
 
@@ -378,7 +383,7 @@ export default function ArchitecturePage() {
               <div className="space-y-2">
                 {category.tools.map((tool, i) => (
                   <div key={i} className="flex items-center gap-2 text-sm">
-                    <div className="size-1.5 bg-cyan-500 rounded-full"></div>
+                    <div className="size-1.5 bg-[#0085FF] rounded-full"></div>
                     <span className="text-muted-foreground">{tool}</span>
                   </div>
                 ))}
@@ -397,7 +402,7 @@ export default function ArchitecturePage() {
         className="mb-20"
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Server className="size-8 text-cyan-500" />
+          <Server className="size-8 text-[#0085FF]" />
           Technology Stack
         </h2>
 
@@ -442,7 +447,7 @@ export default function ArchitecturePage() {
         className="mb-20"
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Lock className="size-8 text-cyan-500" />
+          <Lock className="size-8 text-[#0085FF]" />
           Security & Performance
         </h2>
 
@@ -457,21 +462,21 @@ export default function ArchitecturePage() {
                 <Check className="size-4 text-green-500 mt-0.5" />
                 <div>
                   <div className="font-medium">Client-Side Wallet Integration</div>
-                  <div className="text-sm text-muted-foreground">Private keys never leave Leather/Xverse</div>
+                  <div className="text-sm text-muted-foreground">Private keys never leave Freighter wallet</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Check className="size-4 text-green-500 mt-0.5" />
                 <div>
-                  <div className="font-medium">Bitcoin Settlement Security</div>
-                  <div className="text-sm text-muted-foreground">All transactions settle on Bitcoin</div>
+                  <div className="font-medium">Stellar Network Security</div>
+                  <div className="text-sm text-muted-foreground">5-second finality with consensus protocol</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Check className="size-4 text-green-500 mt-0.5" />
                 <div>
-                  <div className="font-medium">Clarity Smart Contract Safety</div>
-                  <div className="text-sm text-muted-foreground">Decidable language prevents vulnerabilities</div>
+                  <div className="font-medium">Soroban Smart Contract Safety</div>
+                  <div className="text-sm text-muted-foreground">Rust-based contracts with built-in safety</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -493,8 +498,8 @@ export default function ArchitecturePage() {
               <div className="flex items-start gap-3">
                 <Check className="size-4 text-blue-500 mt-0.5" />
                 <div>
-                  <div className="font-medium">Edge Runtime Support</div>
-                  <div className="text-sm text-muted-foreground">Global distribution and low latency</div>
+                  <div className="font-medium">5-Second Finality</div>
+                  <div className="text-sm text-muted-foreground">Stellar's fast consensus mechanism</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -507,8 +512,8 @@ export default function ArchitecturePage() {
               <div className="flex items-start gap-3">
                 <Check className="size-4 text-blue-500 mt-0.5" />
                 <div>
-                  <div className="font-medium">Redis Caching Layer</div>
-                  <div className="text-sm text-muted-foreground">Optimized protocol data retrieval</div>
+                  <div className="font-medium">Factory Pattern Optimization</div>
+                  <div className="text-sm text-muted-foreground">Efficient contract deployment system</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -531,49 +536,49 @@ export default function ArchitecturePage() {
         viewport={{ once: true }}
       >
         <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
-          <Network className="size-8 text-cyan-500" />
+          <Network className="size-8 text-[#0085FF]" />
           Data Flow Architecture
         </h2>
 
         <Card className="p-8 bg-gradient-to-r from-card/50 to-card/30 backdrop-blur">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="p-4 bg-blue-500/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
-                <Globe className="size-8 text-blue-500" />
+              <div className="p-4 bg-[#0085FF]/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
+                <Globe className="size-8 text-[#0085FF]" />
               </div>
               <h3 className="font-semibold mb-2">User Input</h3>
               <p className="text-sm text-muted-foreground">
-                Natural language commands for Bitcoin DeFi operations
+                Natural language commands for Stellar contract deployment
               </p>
             </div>
 
             <div className="text-center">
-              <div className="p-4 bg-green-500/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
-                <Brain className="size-8 text-green-500" />
+              <div className="p-4 bg-[#AB78FF]/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
+                <Brain className="size-8 text-[#AB78FF]" />
               </div>
               <h3 className="font-semibold mb-2">MCP Processing</h3>
               <p className="text-sm text-muted-foreground">
-                Claude AI analyzes intent and selects appropriate protocol tools
+                Claude AI analyzes intent and selects appropriate factory tools
               </p>
             </div>
 
             <div className="text-center">
-              <div className="p-4 bg-orange-500/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
-                <Shield className="size-8 text-orange-500" />
+              <div className="p-4 bg-stellar-blue/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
+                <Shield className="size-8 text-stellar-blue" />
               </div>
               <h3 className="font-semibold mb-2">Blockchain Execution</h3>
               <p className="text-sm text-muted-foreground">
-                Stacks SDK executes with Bitcoin security guarantees
+                Stellar SDK deploys contracts with 5-second finality
               </p>
             </div>
 
             <div className="text-center">
-              <div className="p-4 bg-purple-500/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
-                <Cloud className="size-8 text-purple-500" />
+              <div className="p-4 bg-success/10 rounded-full size-16 mx-auto mb-4 flex items-center justify-center">
+                <Factory className="size-8 text-success" />
               </div>
-              <h3 className="font-semibold mb-2">Real-time Response</h3>
+              <h3 className="font-semibold mb-2">Contract Deployed</h3>
               <p className="text-sm text-muted-foreground">
-                Streaming results with progressive data loading
+                Production-ready contracts with transaction receipt
               </p>
             </div>
           </div>
@@ -582,7 +587,7 @@ export default function ArchitecturePage() {
             <div className="flex items-center space-x-2">
               {[1, 2, 3, 4].map((step, index) => (
                 <div key={step} className="flex items-center">
-                  <div className="size-8 bg-cyan-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                  <div className="size-8 bg-[#0085FF] rounded-full flex items-center justify-center text-white text-sm font-medium">
                     {step}
                   </div>
                   {index < 3 && <ArrowRight className="size-4 text-muted-foreground mx-2" />}

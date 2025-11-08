@@ -27,8 +27,8 @@ export interface MerkleTreeResult {
  */
 async function sha256(data: string | Uint8Array): Promise<Uint8Array> {
   const encoder = new TextEncoder();
-  const dataBytes: BufferSource = typeof data === 'string' ? encoder.encode(data) : data;
-  const hashBuffer = await crypto.subtle.digest('SHA-256', dataBytes);
+  const bytes = typeof data === 'string' ? encoder.encode(data) : new Uint8Array(data);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', bytes);
   return new Uint8Array(hashBuffer);
 }
 
