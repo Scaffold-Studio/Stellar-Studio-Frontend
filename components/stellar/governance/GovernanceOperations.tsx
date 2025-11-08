@@ -7,7 +7,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -58,23 +58,57 @@ function GovernanceQueryDisplay({
   const wallet = useStellarWallet();
 
   // Determine query function based on operation type
-  const queryFn = async () => {
-    const client = new GovernanceContractClient(contractAddress, wallet);
-
-    if (operationType === 'has-voted') {
-      if (index === undefined) throw new Error('Voter index required');
-      const result = await client.hasVoted(index);
-      return result;
-    } else {
-      const result = await client.getVoteResults();
-      return result;
-    }
-  };
-
-  const { data, isLoading, error } = useContractQuery({
-    queryKey: ['governance', operationType, contractAddress, index],
-    queryFn,
+  const { query, data, isLoading, error } = useContractQuery<any>({
+    contractAddress,
+    method: operationType,
+    network: wallet.network,
   });
+
+  useEffect(() => {
+    if (!wallet.publicKey) return;
+    if (operationType === 'has-voted' && index === undefined) return;
+
+    let isMounted = true;
+
+    const fetch = async () => {
+      try {
+    const client = new GovernanceContractClient(contractAddress, wallet);
+        const assembled =
+          operationType === 'has-voted'
+            ? await client.hasVoted(index as number)
+            : await client.getVoteResults();
+
+        if (!isMounted) return;
+        await query(assembled as any);
+      } catch (err) {
+        console.error('[GovernanceQueryDisplay] Query error:', err);
+      }
+    };
+
+    fetch();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [
+    contractAddress,
+    operationType,
+    index,
+    query,
+    wallet.publicKey,
+    wallet.network,
+    wallet.networkPassphrase,
+    wallet.rpcUrl,
+  ]);
+
+  if (operationType === 'has-voted' && index === undefined) {
+    return (
+      <Alert variant="destructive">
+        <AlertCircle className="size-4" />
+        <AlertDescription>Voter index is required to check vote status</AlertDescription>
+      </Alert>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -233,7 +267,15 @@ export default function GovernanceOperations({
       const proofBuffers = proof.map(p => Buffer.from(p, 'hex'));
 
       // Build assembled transaction
-      const assembled = await client.vote(voteData, proofBuffers, approve);
+      const assembled = await client.vote(
+        {
+          index: voteData.index,
+          account: voteData.account,
+          voting_power: voteData.votingPower,
+        },
+        proofBuffers,
+        approve
+      );
 
       // Execute transaction
       await execute(assembled);
@@ -340,7 +382,7 @@ export default function GovernanceOperations({
             hash={hash}
             contractAddress={contractAddress}
             operation={operationType}
-            status={status || 'pending'}
+            status={status === 'timeout' ? 'failed' : status || 'pending'}
             network={wallet.network}
             result={result}
             error={error}

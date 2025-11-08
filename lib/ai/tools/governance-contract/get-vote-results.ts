@@ -31,20 +31,25 @@ export const governanceGetVoteResults = tool({
 
       // Simulate to get result (no signing required)
       const simulation = await assembled.simulate();
-      const result = simulation.result;
+      const [votesForRaw, votesAgainstRaw] = simulation.result as readonly [bigint, bigint];
+      const votesFor = votesForRaw?.toString() || '0';
+      const votesAgainst = votesAgainstRaw?.toString() || '0';
 
-      console.log('[governanceGetVoteResults] Query result:', result);
+      console.log('[governanceGetVoteResults] Query result:', {
+        votesFor: votesForRaw,
+        votesAgainst: votesAgainstRaw,
+      });
 
       return {
         success: true,
         data: {
           contractAddress,
-          votesFor: result.votes_for?.toString() || '0',
-          votesAgainst: result.votes_against?.toString() || '0',
+          votesFor,
+          votesAgainst,
           network,
           status: 'active',
         },
-        message: `Vote results: ${result.votes_for || 0} for, ${result.votes_against || 0} against`,
+        message: `Vote results: ${votesFor} for, ${votesAgainst} against`,
       };
     } catch (error: any) {
       console.error('[governanceGetVoteResults] Error:', error);

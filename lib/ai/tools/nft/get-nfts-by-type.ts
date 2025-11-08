@@ -28,9 +28,14 @@ export const getNFTsByType = tool({
       const readOnlyWallet = createReadOnlyWallet();
       const factoryAddress = getFactoryAddress('nft_factory');
 
+      const nftTypeEnum: NFTType = {
+        tag: nftType as NFTType['tag'],
+        values: undefined,
+      } as NFTType;
+
       // Create client and call method
       const client = new NFTFactoryClient(readOnlyWallet);
-      const assembled = await client.getNFTsByType(nftType as NFTType);
+      const assembled = await client.getNFTsByType(nftTypeEnum);
 
       // Simulate to get result (no signing required)
       const simulation = await assembled.simulate();

@@ -95,7 +95,10 @@ export function useContractCall(options?: UseContractCallOptions) {
         const sendResult = await assembled.signAndSend();
 
         // Get transaction hash
-        const hash = sendResult.hash || sendResult.sendTransactionResponse?.hash;
+        const hash =
+          sendResult.sendTransactionResponse?.hash ||
+          sendResult.getTransactionResponse?.txHash ||
+          sendResult.getTransactionResponseAll?.find((resp) => resp?.txHash)?.txHash;
 
         if (!hash) {
           throw new Error('No transaction hash returned');

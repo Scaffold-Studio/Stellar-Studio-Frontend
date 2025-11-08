@@ -43,7 +43,7 @@ export async function pollTransactionStatus(
             status: 'success',
             result: txResponse.returnValue,
             ledger: txResponse.ledger,
-            createdAt: txResponse.createdAt,
+            createdAt: txResponse.createdAt ? txResponse.createdAt.toString() : undefined,
           };
 
         case SorobanRpc.Api.GetTransactionStatus.FAILED:

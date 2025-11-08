@@ -15,6 +15,7 @@ import {
   NFTFactoryClient,
   GovernanceFactoryClient,
 } from '@/lib/stellar/clients';
+import type { TokenType, NFTType, GovernanceType } from '@/lib/stellar/clients';
 import { AddressDisplay } from '@/components/shared/AddressDisplay';
 import { InfoCard } from '@/components/shared/InfoCard';
 import { LoadingCard } from '@/components/shared/LoadingCard';
@@ -70,7 +71,22 @@ const FACTORY_CONFIG = {
     gradient: 'from-accent-cyan/5 to-accent-purple/5',
     color: 'text-accent-cyan'
   },
-};
+} as const;
+
+const createTokenType = (type: string): TokenType => ({
+  tag: type as TokenType['tag'],
+  values: undefined,
+}) as TokenType;
+
+const createNFTType = (type: string): NFTType => ({
+  tag: type as NFTType['tag'],
+  values: undefined,
+}) as NFTType;
+
+const createGovernanceType = (type: string): GovernanceType => ({
+  tag: type as GovernanceType['tag'],
+  values: undefined,
+}) as GovernanceType;
 
 export default function FactoryQueryResults({
   factoryType,
@@ -79,7 +95,7 @@ export default function FactoryQueryResults({
   data: propData,
 }: FactoryQueryResultsProps) {
   const wallet = useStellarWallet();
-  const { query, isLoading, data: queryData, error } = useContractQuery<DeployedContract[] | number>();
+  const { query, isLoading, data: queryData, error } = useContractQuery<any>();
 
   const config = FACTORY_CONFIG[factoryType];
   
@@ -94,43 +110,76 @@ export default function FactoryQueryResults({
       if (!wallet.publicKey) return;
 
       try {
-        let client: TokenFactoryClient | NFTFactoryClient | GovernanceFactoryClient;
         let assembled;
 
-        switch (factoryType) {
-          case 'token':
-            client = new TokenFactoryClient(wallet);
-            break;
-          case 'nft':
-            client = new NFTFactoryClient(wallet);
-            break;
-          case 'governance':
-            client = new GovernanceFactoryClient(wallet);
-            break;
+        if (factoryType === 'token') {
+          const client = new TokenFactoryClient(wallet);
+
+          switch (queryType) {
+            case 'all':
+              assembled = await client.getDeployedTokens();
+              break;
+            case 'by-type':
+              if (!filters.type) throw new Error('Type filter required');
+              assembled = await client.getTokensByType(createTokenType(filters.type));
+              break;
+            case 'by-admin':
+              if (!filters.admin) throw new Error('Admin filter required');
+              assembled = await client.getTokensByAdmin(filters.admin);
+              break;
+            case 'count':
+              assembled = await client.getTokenCount();
+              break;
+            default:
+              throw new Error(`Query type "${queryType}" not supported for token factory`);
+          }
+        } else if (factoryType === 'nft') {
+          const client = new NFTFactoryClient(wallet);
+
+          switch (queryType) {
+            case 'all':
+              assembled = await client.getDeployedNFTs();
+              break;
+            case 'by-type':
+              if (!filters.type) throw new Error('Type filter required');
+              assembled = await client.getNFTsByType(createNFTType(filters.type));
+              break;
+            case 'by-owner':
+              if (!filters.owner) throw new Error('Owner filter required');
+              assembled = await client.getNFTsByOwner(filters.owner);
+              break;
+            case 'count':
+              assembled = await client.getNFTCount();
+              break;
+            default:
+              throw new Error(`Query type "${queryType}" not supported for nft factory`);
+          }
+        } else if (factoryType === 'governance') {
+          const client = new GovernanceFactoryClient(wallet);
+
+          switch (queryType) {
+            case 'all':
+              assembled = await client.getDeployedGovernance();
+              break;
+            case 'by-type':
+              if (!filters.type) throw new Error('Type filter required');
+              assembled = await client.getGovernanceByType(createGovernanceType(filters.type));
+              break;
+            case 'by-admin':
+              if (!filters.admin) throw new Error('Admin filter required');
+              assembled = await client.getGovernanceByAdmin(filters.admin);
+              break;
+            case 'count':
+              assembled = await client.getGovernanceCount();
+              break;
+            default:
+              throw new Error(`Query type "${queryType}" not supported for governance factory`);
+          }
+        } else {
+          throw new Error(`Unknown factory type: ${factoryType}`);
         }
 
-        switch (queryType) {
-          case 'all':
-            assembled = await client.getDeployed();
-            break;
-          case 'by-type':
-            if (!filters.type) throw new Error('Type filter required');
-            assembled = await client.getByType(filters.type);
-            break;
-          case 'by-admin':
-            if (!filters.admin) throw new Error('Admin filter required');
-            assembled = await client.getByAdmin(filters.admin);
-            break;
-          case 'by-owner':
-            if (!filters.owner) throw new Error('Owner filter required');
-            assembled = await (client as NFTFactoryClient).getByOwner(filters.owner);
-            break;
-          case 'count':
-            assembled = await client.getCount();
-            break;
-        }
-
-        await query(assembled);
+        await query(assembled as any);
       } catch (err: any) {
         console.error('Error fetching factory data:', err);
       }

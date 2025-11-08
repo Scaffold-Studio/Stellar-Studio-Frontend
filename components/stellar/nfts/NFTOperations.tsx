@@ -307,7 +307,7 @@ export default function NFTOperations({
             hash={hash}
             contractAddress={contractAddress}
             operation={operationType}
-            status={status || 'pending'}
+            status={status === 'timeout' ? 'failed' : status || 'pending'}
             network={wallet.network}
             result={result}
             error={error}

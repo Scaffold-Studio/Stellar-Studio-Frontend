@@ -18,7 +18,9 @@ type StatusType =
   | 'pending'
   | 'active'
   | 'paused'
-  | 'inactive';
+  | 'inactive'
+  | 'passed'
+  | 'rejected';
 
 interface StatusBadgeProps {
   status: StatusType;
@@ -66,6 +68,16 @@ const statusConfig: Record<
     label: 'Inactive',
     icon: XCircle,
     className: 'bg-text-quaternary/10 text-text-quaternary border-text-quaternary/20',
+  },
+  passed: {
+    label: 'Passed',
+    icon: CheckCircle2,
+    className: 'bg-accent-success/10 text-accent-success border-accent-success/20',
+  },
+  rejected: {
+    label: 'Rejected',
+    icon: XCircle,
+    className: 'bg-accent-error/10 text-accent-error border-accent-error/20',
   },
 };
 

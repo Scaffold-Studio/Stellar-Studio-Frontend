@@ -34,21 +34,12 @@ export function generateSalt(): string {
 export async function generateDeterministicSalt(seed: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(seed);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data.buffer as ArrayBuffer);
   const hashArray = new Uint8Array(hashBuffer);
   
   return Array.from(hashArray)
     .map(b => b.toString(16).padStart(2, '0'))
     .join('');
-}
-
-/**
- * Validate salt format
- * @param salt - Salt to validate
- * @returns true if valid 32-byte hex string
- */
-export function isValidSalt(salt: string): boolean {
-  return /^[0-9a-f]{64}$/i.test(salt);
 }
 
 /**
