@@ -51,7 +51,7 @@ export function PageHeader() {
                 <nav className="grid gap-6 text-lg font-medium mt-8">
                   <Link href="/" className="flex items-center gap-2 text-xl font-bold">
                     <Image
-                      src="/images/stellar-logo.svg"
+                      src="/images/stellar-studio.jpeg"
                       alt="Stellar Studio"
                       width={32}
                       height={32}
