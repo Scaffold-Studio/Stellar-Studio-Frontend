@@ -1,12 +1,12 @@
 <div align="center">
 
-![Stellar Studio Banner](./public/images/stellar-banner.jpeg)
+![Stellar Studio Banner](https://raw.githubusercontent.com/Scaffold-Studio/stellar-studio-brand-assets/main/scaffold-studio-banner.png)
 
 # Stellar Studio Frontend
 
-**Conversational Interface for Stellar Smart Contracts**
+**Deploy and command Stellar tokens, NFTs, and DAOs through conversation.**
 
-Deploy and manage Stellar contracts through natural language AI
+AI copilots that let builders launch, operate, and transact on Stellar with natural language.
 
 **Live at [scaffold-studio.app](https://scaffold-studio.app)**
 
@@ -29,11 +29,11 @@ Stellar Studio Frontend is a Next.js application that makes Stellar blockchain o
 
 **What You Can Do:**
 - Deploy 5 token types through conversation
-- Deploy 2 NFT collection types
-- Deploy MerkleVoting governance with auto-generated merkle roots
-- Query all deployed contracts from factories
-- Execute token and NFT operations
-- Manage governance voting
+- Launch 2 NFT collection types and mint on demand
+- Spin up MerkleVoting governance with auto-generated merkle roots
+- Query and orchestrate every deployed contract from the factories
+- Execute token and NFT operations (transfer, mint, burn, approve)
+- Manage governance voting with proof-backed workflows
 
 **How It Works:**
 - Chat with AI in natural language
@@ -126,6 +126,8 @@ Real-time blockchain data queries:
 
 ### System Overview
 
+![Frontend Architecture](https://raw.githubusercontent.com/Scaffold-Studio/stellar-studio-brand-assets/main/Frontend%20Architecture.png)
+
 ```mermaid
 graph TB
     subgraph "Frontend Application"
@@ -172,6 +174,8 @@ graph TB
 
 ### Data Flow
 
+![Frontend Data Flow](https://raw.githubusercontent.com/Scaffold-Studio/stellar-studio-brand-assets/main/Frontend%20Data%20Flow.png)
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -197,6 +201,8 @@ sequenceDiagram
 ```
 
 ### Component Architecture
+
+![Frontend Component Architecture](https://raw.githubusercontent.com/Scaffold-Studio/stellar-studio-brand-assets/main/Frontend%20Component%20Architecture.png)
 
 ```mermaid
 graph LR
