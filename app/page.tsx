@@ -623,6 +623,7 @@ export default function LandingPage() {
                 <li><Link href="/about" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">About</Link></li>
                 <li><a href="https://stellar.org" target="_blank" rel="noopener noreferrer" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">Stellar Network</a></li>
                 <li><a href="https://github.com/Scaffold-Studio" target="_blank" rel="noopener noreferrer" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">GitHub</a></li>
+                <li><a href="https://x.com/scaffold_studio" target="_blank" rel="noopener noreferrer" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">X (Twitter)</a></li>
                 </ul>
               </div>
             </div>

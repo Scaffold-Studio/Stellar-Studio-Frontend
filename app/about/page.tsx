@@ -29,15 +29,15 @@ export default function AboutPage() {
             </Badge>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-text-primary">
-              Deploy Stellar Smart Contracts <br />
+              Manage Stellar Smart Contracts <br />
               <span className="bg-gradient-to-r from-[#0085FF] to-[#AB78FF] bg-clip-text text-transparent">
                 Through Conversation
               </span>
             </h1>
 
             <p className="text-xl text-text-secondary mb-8 max-w-3xl mx-auto leading-relaxed">
-              No Soroban coding required. Stellar Studio is an AI-powered platform that lets you deploy
-              tokens, NFTs, and governance contracts using natural language — powered by the Model Context Protocol.
+              No Soroban coding required. Stellar Studio is an AI-powered platform with 80+ tools to deploy,
+              transfer, query, and manage tokens, NFTs, and governance contracts using natural language — powered by the Model Context Protocol.
             </p>
 
             <Button size="lg" asChild className="bg-gradient-to-r from-[#0085FF] to-[#AB78FF] hover:opacity-90 text-white border-0 text-lg px-8 py-6 shadow-glow-blue">
@@ -63,8 +63,9 @@ export default function AboutPage() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">What is Stellar Studio?</h2>
             <p className="text-xl text-text-muted leading-relaxed">
               Stellar Studio is a Model Context Protocol (MCP) server and web interface that enables AI assistants
-              like Claude to deploy and interact with Stellar smart contracts. Instead of writing Soroban code,
-              you simply describe what you want to build in natural language.
+              like Claude to deploy and interact with Stellar smart contracts. With 80+ blockchain operation tools,
+              you can deploy contracts, transfer tokens, check balances, mint NFTs, approve transactions, vote on proposals,
+              and manage all blockchain operations through natural language — no Soroban coding required.
             </p>
           </motion.div>
 
@@ -146,8 +147,8 @@ export default function AboutPage() {
                 <div>
                   <h3 className="text-xl font-semibold mb-2 text-text-primary">1. AI Interface</h3>
                   <p className="text-text-muted">
-                    You describe your smart contract needs in natural language through Claude Desktop,
-                    Cursor, or the web interface.
+                    You describe your blockchain operations in natural language through Claude Desktop,
+                    Cursor, or the web interface — deploy contracts, transfer assets, check balances, and more.
                   </p>
                 </div>
               </div>
@@ -185,10 +186,10 @@ export default function AboutPage() {
               <div className="flex items-start gap-4">
                 <Users className="size-8 text-primary mt-1 shrink-0" />
                 <div>
-                  <h3 className="text-xl font-semibold mb-2 text-text-primary">4. Contract Deployment</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-text-primary">4. Execution & Results</h3>
                   <p className="text-text-muted">
-                    Your token, NFT, or governance contract is deployed using factory patterns,
-                    returning the contract address for immediate use.
+                    Contracts are deployed via factory patterns, tokens are transferred, NFTs are minted,
+                    balances are queried — all operations return immediate results for your use.
                   </p>
                 </div>
               </div>
@@ -209,7 +210,7 @@ export default function AboutPage() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">Technology Stack</h2>
             <p className="text-xl text-text-muted leading-relaxed">
-              Built with modern tools and protocols for reliable, type-safe smart contract deployment.
+              Built with modern tools and protocols for reliable, type-safe smart contract operations.
             </p>
           </motion.div>
 
@@ -278,7 +279,7 @@ export default function AboutPage() {
               Ready to Try Stellar Studio?
             </h2>
             <p className="text-xl text-text-muted mb-8">
-              Deploy your first Stellar smart contract through natural language.
+              Deploy contracts, transfer tokens, mint NFTs, and manage all blockchain operations through natural language.
               No Soroban coding required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
