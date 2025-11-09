@@ -65,6 +65,9 @@ export function PageHeader() {
                   <Link href="/docs" className="text-text-tertiary hover:text-[#0085FF] transition-colors">
                     Documentation
                   </Link>
+                  <Link href="/roadmap" className="text-text-tertiary hover:text-[#0085FF] transition-colors">
+                    Roadmap
+                  </Link>
                   <Link href="/about" className="text-text-tertiary hover:text-[#0085FF] transition-colors">
                     About
                   </Link>

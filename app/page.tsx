@@ -614,6 +614,7 @@ export default function LandingPage() {
                 <ul className="space-y-2">
                 <li><Link href="/chat" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">AI Terminal</Link></li>
                 <li><Link href="/docs" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">Documentation</Link></li>
+                <li><Link href="/roadmap" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">Roadmap</Link></li>
                 </ul>
               </div>
 
