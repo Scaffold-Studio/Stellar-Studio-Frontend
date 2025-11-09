@@ -182,9 +182,9 @@ export default function LandingPage() {
               <Link href="/about" className="text-sm text-text-secondary hover:text-accent-cyan transition-colors">
                 About
               </Link>
-              <a 
-                href="https://github.com/stellar-studio" 
-                target="_blank" 
+              <a
+                href="https://github.com/Scaffold-Studio"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-text-secondary hover:text-accent-cyan transition-colors flex items-center gap-1"
               >
@@ -622,7 +622,7 @@ export default function LandingPage() {
                 <ul className="space-y-2">
                 <li><Link href="/about" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">About</Link></li>
                 <li><a href="https://stellar.org" target="_blank" rel="noopener noreferrer" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">Stellar Network</a></li>
-                <li><a href="https://github.com/stellar-studio" target="_blank" rel="noopener noreferrer" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">GitHub</a></li>
+                <li><a href="https://github.com/Scaffold-Studio" target="_blank" rel="noopener noreferrer" className="text-sm text-text-tertiary hover:text-accent-cyan transition-colors">GitHub</a></li>
                 </ul>
               </div>
             </div>
