@@ -179,6 +179,9 @@ export default function LandingPage() {
               <Link href="/docs" className="text-sm text-text-secondary hover:text-accent-cyan transition-colors">
                 Documentation
               </Link>
+              <Link href="/roadmap" className="text-sm text-text-secondary hover:text-accent-cyan transition-colors">
+                Roadmap
+              </Link>
               <Link href="/about" className="text-sm text-text-secondary hover:text-accent-cyan transition-colors">
                 About
               </Link>
@@ -228,6 +231,9 @@ export default function LandingPage() {
                     </Link>
                     <Link href="/docs" className="text-lg text-text-secondary hover:text-accent-cyan transition-colors">
                       Documentation
+                    </Link>
+                    <Link href="/roadmap" className="text-lg text-text-secondary hover:text-accent-cyan transition-colors">
+                      Roadmap
                     </Link>
                     <Link href="/about" className="text-lg text-text-secondary hover:text-accent-cyan transition-colors">
                       About
