@@ -14,26 +14,26 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 const capabilities = [
   {
     icon: Coins,
-    title: "Token Contracts",
-    description: "Deploy pausable, capped, allowlist, or blocklist tokens",
+    title: "Token Operations",
+    description: "Deploy, transfer, mint, burn, approve - full ERC20 compatibility",
     gradient: "from-accent-cyan to-accent-purple",
   },
   {
     icon: ImageIcon,
-    title: "NFT Collections",
-    description: "Launch enumerable or access-controlled NFT collections",
+    title: "NFT Management",
+    description: "Deploy collections, mint, transfer, query ownership and metadata",
     gradient: "from-accent-purple to-accent-orange",
   },
   {
     icon: Vote,
-    title: "Governance Systems",
-    description: "Create merkle voting mechanisms for DAOs",
+    title: "Governance",
+    description: "Deploy voting contracts, cast votes, query results with merkle proofs",
     gradient: "from-accent-orange to-accent-cyan",
   },
   {
     icon: Code2,
-    title: "Contract Operations",
-    description: "Query and interact with deployed Soroban contracts",
+    title: "Blockchain Queries",
+    description: "Check balances, get token info, query NFT ownership, and more",
     gradient: "from-accent-success to-accent-cyan",
   },
 ];
@@ -57,8 +57,8 @@ const features = [
   },
   {
     icon: Terminal,
-    title: "52 AI Tools",
-    description: "Complete toolkit for deployment, queries, and contract operations",
+    title: "80+ AI Tools",
+    description: "Complete toolkit for deployment, transfers, queries, and management",
   },
 ];
 
@@ -281,7 +281,7 @@ export default function LandingPage() {
           >
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.1]">
               <span className="text-text-primary block mb-2">
-                Deploy Production Contracts
+                Manage Stellar Contracts
               </span>
               <span className="bg-gradient-to-r from-accent-cyan to-accent-purple bg-clip-text text-transparent block">
                 Through Conversation
@@ -289,11 +289,11 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-xl sm:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed mb-6">
-              Factory-powered contract deployment on Stellar via AI
+              Deploy, query, transfer, and manage blockchain operations via AI
             </p>
 
             <p className="text-lg text-text-tertiary max-w-2xl mx-auto mb-12">
-              Deploy tokens, NFT collections, and governance systems using proven contract templates
+              80+ tools for tokens, NFTs, and governance - deploy contracts, check balances, transfer assets, mint NFTs, vote on proposals, and more
             </p>
 
             {/* CTA Buttons */}
@@ -363,10 +363,10 @@ export default function LandingPage() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-              Contract Types
+              Complete Blockchain Operations
             </h2>
             <p className="text-lg text-text-tertiary max-w-2xl mx-auto">
-              Deploy from our factory system of audited contract templates
+              80+ AI tools for comprehensive smart contract deployment and management
             </p>
           </motion.div>
 
@@ -522,11 +522,11 @@ export default function LandingPage() {
                 </h2>
 
                 <p className="text-xl text-text-secondary leading-relaxed mb-4">
-                  A <span className="text-accent-cyan font-semibold">factory deployment system</span> for Stellar smart contracts
+                  A <span className="text-accent-cyan font-semibold">complete blockchain operations platform</span> for Stellar smart contracts
                   </p>
 
                 <p className="text-lg text-text-tertiary leading-relaxed max-w-2xl mx-auto">
-                  We've built 4 factory contracts on Stellar that enable gas-efficient deployment of tokens, NFTs, and governance systems. The AI interface makes it conversational — deploy production contracts through chat instead of CLI commands.
+                  We've built 4 factory contracts on Stellar that enable gas-efficient deployment of tokens, NFTs, and governance systems. The AI interface provides 80+ tools — deploy contracts, transfer tokens, check balances, mint NFTs, vote on proposals, and manage all blockchain operations through conversation.
                   </p>
 
                 <div className="flex flex-wrap gap-4 justify-center mt-8">
@@ -562,7 +562,7 @@ export default function LandingPage() {
                   Ready to Deploy?
               </h2>
               <p className="text-lg text-text-tertiary mb-8 max-w-2xl mx-auto">
-                  Use our factory system to deploy your first contract in minutes
+                  Deploy contracts, manage tokens, transfer NFTs, and more through conversation
               </p>
 
               <MagneticButton
@@ -604,7 +604,7 @@ export default function LandingPage() {
                 </span>
                 </div>
                 <p className="text-sm text-text-tertiary max-w-sm mb-4">
-                Factory deployment system for Stellar contracts. Deploy tokens, NFTs, and governance through AI.
+                Complete blockchain operations for Stellar. Deploy, transfer, query, and manage tokens, NFTs, and governance through AI.
               </p>
               </div>
 

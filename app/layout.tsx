@@ -9,8 +9,8 @@ import { ActivityProvider } from "@/providers/ActivityProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stellar-studio.xyz"),
-  title: "Stellar Studio - Factory Contract Deployment via AI",
-  description: "Deploy Stellar smart contracts from factory templates through AI. Tokens, NFTs, and governance deployment using proven OpenZeppelin patterns. 52 AI tools for contract management.",
+  title: "Stellar Studio - Complete Blockchain Operations via AI",
+  description: "Deploy, transfer, query, and manage Stellar smart contracts through AI. 80+ tools for tokens, NFTs, and governance - check balances, mint NFTs, transfer assets, vote on proposals, and more. Full ERC20/ERC721 compatibility.",
 };
 
 export const viewport = {

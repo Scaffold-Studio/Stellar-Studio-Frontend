@@ -72,58 +72,6 @@ export default function NotFound() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all duration-300"
             >
-              <h3 className="font-semibold text-lg mb-3 text-primary">Popular Pages</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                    About Stellar Studio
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/docs/getting-started" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Getting Started Guide
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/chat" className="text-muted-foreground hover:text-foreground transition-colors">
-                    AI Terminal
-                  </Link>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all duration-300"
-            >
-              <h3 className="font-semibold text-lg mb-3 text-primary">Documentation</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/docs/api-reference" className="text-muted-foreground hover:text-foreground transition-colors">
-                    API Reference
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/docs/examples" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Code Examples
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/docs/faq" className="text-muted-foreground hover:text-foreground transition-colors">
-                    FAQ
-                  </Link>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all duration-300"
-            >
               <h3 className="font-semibold text-lg mb-3 text-primary">Get Started</h3>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -138,7 +86,59 @@ export default function NotFound() {
                 </li>
                 <li>
                   <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                    Learn More
+                    About Stellar Studio
+                  </Link>
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all duration-300"
+            >
+              <h3 className="font-semibold text-lg mb-3 text-primary">Resources</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/docs" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Documentation
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/docs/faq" className="text-muted-foreground hover:text-foreground transition-colors">
+                    FAQ
+                  </Link>
+                </li>
+                <li>
+                  <a href="https://github.com/Scaffold-Studio" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                    GitHub
+                  </a>
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="p-6 border rounded-xl bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all duration-300"
+            >
+              <h3 className="font-semibold text-lg mb-3 text-primary">Operations</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/chat" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Deploy Contracts
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/chat" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Transfer & Manage Tokens
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/chat" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Query Blockchain Data
                   </Link>
                 </li>
               </ul>
