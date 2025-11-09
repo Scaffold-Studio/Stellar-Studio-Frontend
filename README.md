@@ -8,12 +8,14 @@
 
 Deploy and manage Stellar contracts through natural language AI
 
+**Live at [scaffold-studio.app](https://scaffold-studio.app)**
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-15-000000)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6)](https://www.typescriptlang.org/)
 
-[Quick Start](#quick-start) • [Features](#features) • [Architecture](#architecture) • [AI Tools](#ai-tools)
+[Live Demo](https://scaffold-studio.app) • [Quick Start](#quick-start) • [Features](#features) • [Architecture](#architecture) • [AI Tools](#ai-tools)
 
 </div>
 
@@ -812,8 +814,10 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 **Part of the Stellar Studio Ecosystem**
 
-[Contracts](../stellar-studio-contracts/) • [Frontend](.) • [MCP Server](../stellar-studio-mcp-server/)
+[Live Demo](https://scaffold-studio.app) • [Contracts](../stellar-studio-contracts/) • [Frontend](.) • [MCP Server](../stellar-studio-mcp-server/)
 
 Built with Next.js and AI for Stellar
+
+Visit us at [scaffold-studio.app](https://scaffold-studio.app)
 
 </div>
