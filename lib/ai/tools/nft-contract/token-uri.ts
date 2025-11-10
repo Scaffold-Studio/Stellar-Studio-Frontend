@@ -13,7 +13,7 @@ import { createReadOnlyWallet } from '@/lib/stellar/read-only-wallet';
 export const nftTokenUri = tool({
   description: 'Get token URI (metadata) for an NFT.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     tokenId: z.number().describe('The token ID'),
   }),
   execute: async ({ contractAddress, tokenId }) => {

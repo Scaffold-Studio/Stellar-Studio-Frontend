@@ -17,7 +17,7 @@ export const tokenName = tool({
   Use when user asks about token name or wants token information.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The token contract address'),
+    contractAddress: z.string().describe('The token CONTRACT address (starts with C, e.g., CBOY...). This is the token contract returned from deployment, NOT a wallet address (which starts with G).'),
   }),
 
   execute: async ({ contractAddress }) => {
@@ -46,7 +46,7 @@ export const tokenName = tool({
       return {
         success: false,
         error: error.message,
-        message: `Failed to query token name: ${error.message}`,
+        message: `Failed to query token name: ${error.message}. Contract may not exist at ${contractAddress}`,
       };
     }
   },

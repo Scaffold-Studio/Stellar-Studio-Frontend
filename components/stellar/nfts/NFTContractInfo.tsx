@@ -3,21 +3,103 @@
  *
  * Displays NFT contract information with image support for token URI
  * Updated with new color scheme and image display
+ * Presentational component - accepts data as props, no fetching
  */
 
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useStellarWallet } from '@/hooks/useStellarWallet';
-import { useContractQuery } from '@/lib/stellar/hooks/useContractQuery';
-import { NFTContractClient } from '@/lib/stellar/clients';
 import { AddressDisplay } from '@/components/shared/AddressDisplay';
 import { InfoCard } from '@/components/shared/InfoCard';
-import { LoadingCard } from '@/components/shared/LoadingCard';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, Image as ImageIcon, Coins, User } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
+
+// Proper types based on tool return data
+type NetworkType = 'local' | 'testnet' | 'mainnet';
+
+type NFTBalanceData = {
+  contractAddress: string;
+  account: string;
+  balance: string;
+  network: NetworkType;
+};
+
+type NFTOwnerOfData = {
+  contractAddress: string;
+  tokenId: number;
+  owner: string;
+  network: NetworkType;
+};
+
+type NFTGetApprovedData = {
+  contractAddress: string;
+  tokenId: number;
+  approved: string;
+  network: NetworkType;
+};
+
+type NFTIsApprovedForAllData = {
+  contractAddress: string;
+  owner: string;
+  operator: string;
+  isApproved: boolean;
+  network: NetworkType;
+};
+
+type NFTTokenUriData = {
+  contractAddress: string;
+  tokenId: number;
+  tokenUri: string;
+  network: NetworkType;
+};
+
+type NFTNameData = {
+  contractAddress: string;
+  name: string;
+  network: NetworkType;
+};
+
+type NFTSymbolData = {
+  contractAddress: string;
+  symbol: string;
+  network: NetworkType;
+};
+
+type NFTTotalSupplyData = {
+  contractAddress: string;
+  totalSupply: string;
+  network: NetworkType;
+};
+
+type NFTGetOwnerTokenIdData = {
+  contractAddress: string;
+  owner: string;
+  index: number;
+  tokenId: string;
+  network: NetworkType;
+};
+
+type NFTGetTokenIdData = {
+  contractAddress: string;
+  index: number;
+  tokenId: string;
+  network: NetworkType;
+};
+
+// Union type for all NFT query data types
+type NFTQueryData =
+  | NFTBalanceData
+  | NFTOwnerOfData
+  | NFTGetApprovedData
+  | NFTIsApprovedForAllData
+  | NFTTokenUriData
+  | NFTNameData
+  | NFTSymbolData
+  | NFTTotalSupplyData
+  | NFTGetOwnerTokenIdData
+  | NFTGetTokenIdData;
 
 type QueryType =
   | 'balance'
@@ -33,12 +115,8 @@ type QueryType =
 
 interface NFTContractInfoProps {
   queryType: QueryType;
-  contractAddress: string;
-  account?: string;
-  tokenId?: number;
-  owner?: string;
-  operator?: string;
-  index?: number;
+  data: NFTQueryData;
+  error?: string;
 }
 
 const QUERY_LABELS: Record<QueryType, string> = {
@@ -56,96 +134,34 @@ const QUERY_LABELS: Record<QueryType, string> = {
 
 export default function NFTContractInfo({
   queryType,
-  contractAddress,
-  account,
-  tokenId,
-  owner,
-  operator,
-  index,
+  data,
+  error,
 }: NFTContractInfoProps) {
-  const wallet = useStellarWallet();
-  const { query, isLoading, data, error } = useContractQuery<any>();
   const [nftMetadata, setNftMetadata] = useState<any>(null);
   const [imageLoading, setImageLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!wallet.publicKey) return;
-
-      try {
-        const client = new NFTContractClient(contractAddress, wallet);
-        let assembled;
-
-        switch (queryType) {
-          case 'balance':
-            if (!account) throw new Error('Account required for balance query');
-            assembled = await client.balance(account);
-            break;
-          case 'owner-of':
-            if (tokenId === undefined) throw new Error('Token ID required');
-            assembled = await client.ownerOf(tokenId);
-            break;
-          case 'get-approved':
-            if (tokenId === undefined) throw new Error('Token ID required');
-            assembled = await client.getApproved(tokenId);
-            break;
-          case 'is-approved-for-all':
-            if (!owner || !operator) throw new Error('Owner and operator required');
-            assembled = await client.isApprovedForAll(owner, operator);
-            break;
-          case 'token-uri':
-            if (tokenId === undefined) throw new Error('Token ID required');
-            assembled = await client.tokenUri(tokenId);
-            break;
-          case 'name':
-            assembled = await client.name();
-            break;
-          case 'symbol':
-            assembled = await client.symbol();
-            break;
-          case 'total-supply':
-            assembled = await client.totalSupply();
-            break;
-          case 'get-owner-token-id':
-            if (!owner || index === undefined) throw new Error('Owner and index required');
-            assembled = await client.getOwnerTokenId(owner, index);
-            break;
-          case 'get-token-id':
-            if (index === undefined) throw new Error('Index required');
-            assembled = await client.getTokenId(index);
-            break;
-          default:
-            throw new Error(`Unknown query type: ${queryType}`);
-        }
-
-        await query(assembled);
-      } catch (err: any) {
-        console.error('Error fetching NFT info:', err);
-      }
-    };
-
-    fetchData();
-  }, [queryType, contractAddress, account, tokenId, owner, operator, index, wallet.publicKey]);
 
   // Fetch NFT metadata from URI
   useEffect(() => {
     const fetchMetadata = async () => {
-      if (queryType === 'token-uri' && data && typeof data === 'string') {
-        setImageLoading(true);
-        try {
-          // If it's an IPFS URI, convert to HTTP gateway
-          let uri = data;
-          if (uri.startsWith('ipfs://')) {
-            uri = uri.replace('ipfs://', 'https://ipfs.io/ipfs/');
+      if (queryType === 'token-uri') {
+        const uriData = data as NFTTokenUriData;
+        if (uriData.tokenUri) {
+          setImageLoading(true);
+          try {
+            // If it's an IPFS URI, convert to HTTP gateway
+            let uri = uriData.tokenUri;
+            if (uri.startsWith('ipfs://')) {
+              uri = uri.replace('ipfs://', 'https://ipfs.io/ipfs/');
+            }
+
+            const response = await fetch(uri);
+            const metadata = await response.json();
+            setNftMetadata(metadata);
+          } catch (err) {
+            console.error('Error fetching NFT metadata:', err);
+          } finally {
+            setImageLoading(false);
           }
-          
-          const response = await fetch(uri);
-          const metadata = await response.json();
-          setNftMetadata(metadata);
-        } catch (err) {
-          console.error('Error fetching NFT metadata:', err);
-        } finally {
-          setImageLoading(false);
         }
       }
     };
@@ -156,28 +172,61 @@ export default function NFTContractInfo({
   const formatResult = () => {
     switch (queryType) {
       case 'balance':
-      case 'total-supply':
-      case 'get-owner-token-id':
-      case 'get-token-id':
+        const balanceData = data as NFTBalanceData;
         return (
           <div className="flex items-center gap-2">
             <Coins className="size-5 text-accent-purple" />
             <span className="text-2xl font-bold text-text-primary">
-              {data?.toString() || '0'}
+              {balanceData.balance}
             </span>
           </div>
         );
-      
-      case 'is-approved-for-all':
+
+      case 'total-supply':
+        const supplyData = data as NFTTotalSupplyData;
         return (
           <div className="flex items-center gap-2">
-            <span className={`text-lg font-semibold ${data ? 'text-accent-success' : 'text-text-tertiary'}`}>
-              {data ? 'Approved for All' : 'Not Approved'}
+            <Coins className="size-5 text-accent-purple" />
+            <span className="text-2xl font-bold text-text-primary">
+              {supplyData.totalSupply}
             </span>
           </div>
         );
-      
+
+      case 'get-owner-token-id':
+        const ownerTokenData = data as NFTGetOwnerTokenIdData;
+        return (
+          <div className="flex items-center gap-2">
+            <Coins className="size-5 text-accent-purple" />
+            <span className="text-2xl font-bold text-text-primary">
+              {ownerTokenData.tokenId}
+            </span>
+          </div>
+        );
+
+      case 'get-token-id':
+        const tokenIdData = data as NFTGetTokenIdData;
+        return (
+          <div className="flex items-center gap-2">
+            <Coins className="size-5 text-accent-purple" />
+            <span className="text-2xl font-bold text-text-primary">
+              {tokenIdData.tokenId}
+            </span>
+          </div>
+        );
+
+      case 'is-approved-for-all':
+        const approvalData = data as NFTIsApprovedForAllData;
+        return (
+          <div className="flex items-center gap-2">
+            <span className={`text-lg font-semibold ${approvalData.isApproved ? 'text-accent-success' : 'text-text-tertiary'}`}>
+              {approvalData.isApproved ? 'Approved for All' : 'Not Approved'}
+            </span>
+          </div>
+        );
+
       case 'token-uri':
+        const uriData = data as NFTTokenUriData;
         return (
           <div className="space-y-4">
             <div className="flex items-start gap-3">
@@ -185,7 +234,7 @@ export default function NFTContractInfo({
               <div className="flex-1">
                 <p className="text-xs text-text-tertiary mb-2">Token URI</p>
                 <code className="text-xs text-accent-cyan bg-bg-tertiary px-3 py-2 rounded-lg border border-border-subtle block break-all font-mono">
-                  {data}
+                  {uriData.tokenUri}
                 </code>
               </div>
             </div>
@@ -200,7 +249,7 @@ export default function NFTContractInfo({
                 {nftMetadata.image && (
                   <div className="relative aspect-square w-full">
                     <Image
-                      src={nftMetadata.image.startsWith('ipfs://') 
+                      src={nftMetadata.image.startsWith('ipfs://')
                         ? nftMetadata.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                         : nftMetadata.image
                       }
@@ -241,30 +290,49 @@ export default function NFTContractInfo({
             )}
           </div>
         );
-      
+
       case 'owner-of':
-      case 'get-approved':
+        const ownerData = data as NFTOwnerOfData;
         return (
           <AddressDisplay
-            address={data}
-            label={queryType === 'owner-of' ? 'Owner' : 'Approved Address'}
+            address={ownerData.owner}
+            label="Owner"
             showCopy={true}
             showExplorer={true}
-            network={wallet.network}
+            network={ownerData.network}
           />
         );
-      
+
+      case 'get-approved':
+        const approvedData = data as NFTGetApprovedData;
+        return (
+          <AddressDisplay
+            address={approvedData.approved}
+            label="Approved Address"
+            showCopy={true}
+            showExplorer={true}
+            network={approvedData.network}
+          />
+        );
+
       case 'name':
-      case 'symbol':
+        const nameData = data as NFTNameData;
         return (
           <div>
-            <p className="text-sm text-text-tertiary mb-2">
-              {queryType === 'name' ? 'Collection Name' : 'Symbol'}
-            </p>
-            <p className="text-2xl font-bold text-text-primary">{data}</p>
+            <p className="text-sm text-text-tertiary mb-2">Collection Name</p>
+            <p className="text-2xl font-bold text-text-primary">{nameData.name}</p>
           </div>
         );
-      
+
+      case 'symbol':
+        const symbolData = data as NFTSymbolData;
+        return (
+          <div>
+            <p className="text-sm text-text-tertiary mb-2">Symbol</p>
+            <p className="text-2xl font-bold text-text-primary">{symbolData.symbol}</p>
+          </div>
+        );
+
       default:
         return (
           <pre className="text-xs text-text-secondary bg-bg-tertiary p-3 rounded-lg border border-border-subtle overflow-auto font-mono">
@@ -273,10 +341,6 @@ export default function NFTContractInfo({
         );
     }
   };
-
-  if (isLoading) {
-    return <LoadingCard title={QUERY_LABELS[queryType]} lines={3} />;
-  }
 
   if (error) {
     return (
@@ -298,19 +362,17 @@ export default function NFTContractInfo({
     >
       <div className="space-y-4">
         <AddressDisplay
-          address={contractAddress}
+          address={data.contractAddress}
           label="NFT Contract"
           showCopy={true}
           showExplorer={true}
-          network={wallet.network}
+          network={data.network}
           truncate={true}
         />
-        
-        {data !== undefined && (
-          <div className="pt-4 border-t border-border-subtle">
-            {formatResult()}
-          </div>
-        )}
+
+        <div className="pt-4 border-t border-border-subtle">
+          {formatResult()}
+        </div>
       </div>
     </InfoCard>
   );

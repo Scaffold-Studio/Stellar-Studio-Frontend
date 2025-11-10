@@ -94,6 +94,10 @@ export function useContractCall(options?: UseContractCallOptions) {
         // Sign and send transaction (generated client handles this)
         const sendResult = await assembled.signAndSend();
 
+        // Get the decoded result from the generated bindings
+        // This is already properly decoded (e.g., contract ID as string "CBOY...")
+        const decodedResult = sendResult.result;
+
         // Get transaction hash
         const hash =
           sendResult.sendTransactionResponse?.hash ||
@@ -105,6 +109,7 @@ export function useContractCall(options?: UseContractCallOptions) {
         }
 
         console.log('[useContractCall] Transaction sent:', hash);
+        console.log('[useContractCall] Decoded result:', decodedResult);
 
         // Emit TX_SENT event
         transactionEvents.emit({
@@ -115,16 +120,17 @@ export function useContractCall(options?: UseContractCallOptions) {
           operation: options?.operation || 'unknown',
         });
 
-        // Poll for transaction confirmation
+        // Poll for transaction confirmation (for status only)
         const txResult = await pollTransactionStatus(hash, wallet.rpcUrl);
 
         if (txResult.status === 'success') {
           const durationMs = Date.now() - startTime;
 
+          // Use the decoded result from bindings, not the raw SCVal from polling
           setState({
             isLoading: false,
             hash,
-            result: txResult.result,
+            result: decodedResult,
             status: 'success',
           });
 
@@ -135,15 +141,15 @@ export function useContractCall(options?: UseContractCallOptions) {
             hash,
             contractAddress: options?.contractAddress || 'unknown',
             operation: options?.operation || 'unknown',
-            result: txResult.result,
+            result: decodedResult,
             durationMs,
           });
 
-          options?.onSuccess?.(txResult.result);
+          options?.onSuccess?.(decodedResult);
 
           return {
             hash,
-            result: txResult.result,
+            result: decodedResult,
             status: 'success',
           };
         } else if (txResult.status === 'timeout') {

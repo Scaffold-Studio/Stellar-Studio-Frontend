@@ -12,7 +12,7 @@ import { getCurrentNetwork } from '@/lib/stellar/config';
 export const nftApprove = tool({
   description: 'Approve address to transfer a specific NFT.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     owner: z.string().describe('The NFT owner'),
     approved: z.string().describe('The address to approve'),
     tokenId: z.string().describe('The token ID to approve for'),

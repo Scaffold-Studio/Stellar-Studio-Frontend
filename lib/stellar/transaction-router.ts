@@ -270,6 +270,10 @@ async function routeNFTFactory(
           manager: tx.params.manager && tx.params.manager !== '' ? tx.params.manager : undefined,
           admin: tx.params.admin && tx.params.admin !== '' ? tx.params.admin : undefined,
           salt: nftSalt,  // ✅ Buffer, not string
+          // NEW: Metadata fields (optional)
+          name: tx.params.name || undefined,
+          symbol: tx.params.symbol || undefined,
+          base_uri: tx.params.base_uri || undefined,
         }
       );
 

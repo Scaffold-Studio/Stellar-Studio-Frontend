@@ -36,13 +36,14 @@ export const deployNFT = tool({
   inputSchema: z.object({
     name: z.string().describe('The NFT collection name (e.g., "My Awesome NFTs")'),
     symbol: z.string().max(12).describe('The NFT symbol (e.g., "MAN", max 12 characters)'),
+    baseUri: z.string().optional().describe('Base URI for NFT metadata (e.g., "https://example.com/nft/")'),
     nftType: z.enum(['Enumerable', 'AccessControl'])
       .describe('The type of NFT collection to deploy'),
     owner: z.string().optional().describe('Owner address (defaults to connected wallet)'),
     admin: z.string().optional().describe('Admin address (required for AccessControl)'),
   }),
 
-  execute: async ({ name, symbol, nftType, owner, admin }) => {
+  execute: async ({ name, symbol, baseUri, nftType, owner, admin }) => {
     try {
       // Validate AccessControl requires admin
       if (nftType === 'AccessControl' && !admin) {
@@ -62,6 +63,7 @@ export const deployNFT = tool({
         params: {
           name,
           symbol,
+          base_uri: baseUri || undefined,
           deployer: owner || '', // Will be replaced by wallet address in router
           owner: owner || '',    // Will be replaced by wallet address in router
           admin: admin || '',    // Will be replaced if empty in router
@@ -74,12 +76,16 @@ export const deployNFT = tool({
       return {
         success: true,
         transaction,
-        message: `NFT collection deployment prepared: ${name} (${symbol}). Please sign in your wallet.`,
+        message: `NFT collection deployment prepared: ${name} (${symbol}). Please sign in your wallet.
+
+After signing, the transaction will return the NFT CONTRACT ADDRESS (starts with C).
+You'll need this contract address to interact with the NFT collection (mint, transfer, etc.).`,
         data: {
           name,
           symbol,
           nftType,
           network: getCurrentNetwork(),
+          owner,
         },
       };
     } catch (error: any) {

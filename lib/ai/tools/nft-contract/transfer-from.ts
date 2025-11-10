@@ -12,7 +12,7 @@ import { getCurrentNetwork } from '@/lib/stellar/config';
 export const nftTransferFrom = tool({
   description: 'Transfer NFT on behalf of owner (requires approval).',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     spender: z.string().describe('The spender executing transfer'),
     from: z.string().describe('The current owner'),
     to: z.string().describe('The recipient address'),

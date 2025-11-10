@@ -15,7 +15,7 @@ export const tokenMint = tool({
   Use when user wants to create new tokens.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The token contract address'),
+    contractAddress: z.string().describe('The token CONTRACT address (starts with C, e.g., CBOY...). This is the token contract returned from deployment, NOT a wallet address (which starts with G).'),
     account: z.string().describe('The account to mint tokens to'),
     amount: z.string().describe('The amount to mint'),
   }),

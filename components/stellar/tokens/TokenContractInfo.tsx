@@ -2,21 +2,75 @@
  * TokenContractInfo Component - 2025 Design System
  *
  * Displays token contract information with new color scheme
+ * Presentational component - accepts data as props, no fetching
  */
 
 'use client';
 
-import { useEffect } from 'react';
-import { useStellarWallet } from '@/hooks/useStellarWallet';
-import { useContractQuery } from '@/lib/stellar/hooks/useContractQuery';
-import { TokenContractClient } from '@/lib/stellar/clients';
 import { AddressDisplay } from '@/components/shared/AddressDisplay';
 import { NetworkBadge } from '@/components/shared/NetworkBadge';
 import { InfoCard } from '@/components/shared/InfoCard';
-import { LoadingCard } from '@/components/shared/LoadingCard';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, Coins, TrendingUp, Pause } from 'lucide-react';
+
+// Proper types based on tool return data
+type NetworkType = 'local' | 'testnet' | 'mainnet';
+
+type BalanceData = {
+  contractAddress: string;
+  account: string;
+  balance: string;
+  network: NetworkType;
+};
+
+type TotalSupplyData = {
+  contractAddress: string;
+  totalSupply: string;
+  network: NetworkType;
+};
+
+type AllowanceData = {
+  contractAddress: string;
+  owner: string;
+  spender: string;
+  allowance: string;
+  network: NetworkType;
+};
+
+type DecimalsData = {
+  contractAddress: string;
+  decimals: number;
+  network: NetworkType;
+};
+
+type NameData = {
+  contractAddress: string;
+  name: string;
+  network: NetworkType;
+};
+
+type SymbolData = {
+  contractAddress: string;
+  symbol: string;
+  network: NetworkType;
+};
+
+type PausedData = {
+  contractAddress: string;
+  paused: boolean;
+  network: NetworkType;
+};
+
+// Union type for all query data types
+type TokenQueryData =
+  | BalanceData
+  | TotalSupplyData
+  | AllowanceData
+  | DecimalsData
+  | NameData
+  | SymbolData
+  | PausedData;
 
 type QueryType =
   | 'balance'
@@ -29,10 +83,8 @@ type QueryType =
 
 interface TokenContractInfoProps {
   queryType: QueryType;
-  contractAddress: string;
-  account?: string;
-  owner?: string;
-  spender?: string;
+  data: TokenQueryData;
+  error?: string;
 }
 
 const QUERY_LABELS: Record<QueryType, string> = {
@@ -47,84 +99,70 @@ const QUERY_LABELS: Record<QueryType, string> = {
 
 export default function TokenContractInfo({
   queryType,
-  contractAddress,
-  account,
-  owner,
-  spender,
+  data,
+  error,
 }: TokenContractInfoProps) {
-  const wallet = useStellarWallet();
-  const { query, isLoading, data, error } = useContractQuery<any>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!wallet.publicKey) return;
-
-      try {
-        const client = new TokenContractClient(contractAddress, wallet);
-        let assembled;
-
-        switch (queryType) {
-          case 'balance':
-            if (!account) throw new Error('Account address required');
-            assembled = await client.balance(account);
-            break;
-          case 'total-supply':
-            assembled = await client.totalSupply();
-            break;
-          case 'allowance':
-            if (!owner || !spender) throw new Error('Owner and spender required');
-            assembled = await client.allowance(owner, spender);
-            break;
-          case 'decimals':
-            assembled = await client.decimals();
-            break;
-          case 'name':
-            assembled = await client.name();
-            break;
-          case 'symbol':
-            assembled = await client.symbol();
-            break;
-          case 'paused':
-            assembled = await client.paused();
-            break;
-          default:
-            throw new Error(`Unknown query type: ${queryType}`);
-        }
-
-        await query(assembled);
-      } catch (err: any) {
-        console.error('Error fetching token info:', err);
-      }
-    };
-
-    fetchData();
-  }, [queryType, contractAddress, account, owner, spender, wallet.publicKey]);
-
   const formatResult = () => {
     switch (queryType) {
       case 'balance':
-      case 'total-supply':
-      case 'allowance':
+        const balanceData = data as BalanceData;
         return (
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-accent-success/10">
               <Coins className="size-6 text-accent-success" />
             </div>
             <div>
-              <p className="text-sm text-text-tertiary mb-1">
-                {queryType === 'balance' ? 'Balance' : queryType === 'total-supply' ? 'Total Supply' : 'Allowance'}
-              </p>
+              <p className="text-sm text-text-tertiary mb-1">Balance</p>
               <div className="flex items-baseline gap-2">
                 <span className="text-3xl font-bold text-text-primary">
-                  {data?.toString() || '0'}
+                  {balanceData.balance}
                 </span>
                 <span className="text-lg text-text-tertiary">tokens</span>
               </div>
             </div>
           </div>
         );
-      
+
+      case 'total-supply':
+        const supplyData = data as TotalSupplyData;
+        return (
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-accent-success/10">
+              <Coins className="size-6 text-accent-success" />
+            </div>
+            <div>
+              <p className="text-sm text-text-tertiary mb-1">Total Supply</p>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold text-text-primary">
+                  {supplyData.totalSupply}
+                </span>
+                <span className="text-lg text-text-tertiary">tokens</span>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'allowance':
+        const allowanceData = data as AllowanceData;
+        return (
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-accent-success/10">
+              <Coins className="size-6 text-accent-success" />
+            </div>
+            <div>
+              <p className="text-sm text-text-tertiary mb-1">Allowance</p>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-bold text-text-primary">
+                  {allowanceData.allowance}
+                </span>
+                <span className="text-lg text-text-tertiary">tokens</span>
+              </div>
+            </div>
+          </div>
+        );
+
       case 'decimals':
+        const decimalsData = data as DecimalsData;
         return (
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-accent-cyan/10">
@@ -132,35 +170,43 @@ export default function TokenContractInfo({
             </div>
             <div>
               <p className="text-sm text-text-tertiary mb-1">Decimals</p>
-              <span className="text-3xl font-bold text-text-primary">{data?.toString() || '0'}</span>
+              <span className="text-3xl font-bold text-text-primary">{decimalsData.decimals}</span>
             </div>
           </div>
         );
-      
+
       case 'name':
-      case 'symbol':
+        const nameData = data as NameData;
         return (
           <div>
-            <p className="text-sm text-text-tertiary mb-2">
-              {queryType === 'name' ? 'Token Name' : 'Symbol'}
-            </p>
-            <p className="text-2xl font-bold text-text-primary">{data || 'N/A'}</p>
+            <p className="text-sm text-text-tertiary mb-2">Token Name</p>
+            <p className="text-2xl font-bold text-text-primary">{nameData.name || 'N/A'}</p>
           </div>
         );
-      
+
+      case 'symbol':
+        const symbolData = data as SymbolData;
+        return (
+          <div>
+            <p className="text-sm text-text-tertiary mb-2">Symbol</p>
+            <p className="text-2xl font-bold text-text-primary">{symbolData.symbol || 'N/A'}</p>
+          </div>
+        );
+
       case 'paused':
+        const pausedData = data as PausedData;
         return (
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg ${data ? 'bg-accent-warning/10' : 'bg-accent-success/10'}`}>
-              <Pause className={`size-6 ${data ? 'text-accent-warning' : 'text-accent-success'}`} />
+            <div className={`p-2 rounded-lg ${pausedData.paused ? 'bg-accent-warning/10' : 'bg-accent-success/10'}`}>
+              <Pause className={`size-6 ${pausedData.paused ? 'text-accent-warning' : 'text-accent-success'}`} />
             </div>
             <div>
               <p className="text-sm text-text-tertiary mb-1">Token Status</p>
-              <StatusBadge status={data ? 'paused' : 'active'} size="lg" />
+              <StatusBadge status={pausedData.paused ? 'paused' : 'active'} size="lg" />
             </div>
           </div>
         );
-      
+
       default:
         return (
           <pre className="text-xs text-text-secondary bg-bg-tertiary p-3 rounded-lg border border-border-subtle overflow-auto font-mono">
@@ -169,21 +215,6 @@ export default function TokenContractInfo({
         );
     }
   };
-
-  if (!wallet.publicKey) {
-    return (
-      <Alert variant="destructive" className="bg-accent-error/10 border-accent-error/30">
-        <AlertCircle className="size-4" />
-        <AlertDescription className="text-text-secondary">
-          Please connect your wallet to view token information
-        </AlertDescription>
-      </Alert>
-    );
-  }
-
-  if (isLoading) {
-    return <LoadingCard title={QUERY_LABELS[queryType]} lines={3} />;
-  }
 
   if (error) {
     return (
@@ -203,36 +234,36 @@ export default function TokenContractInfo({
     >
       <div className="space-y-4">
         <AddressDisplay
-          address={contractAddress}
+          address={data.contractAddress}
           label="Token Contract"
           showCopy={true}
           showExplorer={true}
-          network={wallet.network}
+          network={data.network}
           truncate={true}
         />
 
-        {account && (
+        {queryType === 'balance' && 'account' in data && (
           <AddressDisplay
-            address={account}
+            address={data.account}
             label="Account"
             showCopy={true}
             showExplorer={false}
-            network={wallet.network}
+            network={data.network}
             truncate={true}
           />
         )}
 
-        {owner && spender && (
+        {queryType === 'allowance' && 'owner' in data && 'spender' in data && (
           <>
             <AddressDisplay
-              address={owner}
+              address={data.owner}
               label="Owner"
               showCopy={true}
               showExplorer={false}
               truncate={true}
             />
             <AddressDisplay
-              address={spender}
+              address={data.spender}
               label="Spender"
               showCopy={true}
               showExplorer={false}
@@ -241,15 +272,13 @@ export default function TokenContractInfo({
           </>
         )}
 
-        {data !== undefined && (
-          <div className="pt-4 border-t border-border-subtle">
-            {formatResult()}
-          </div>
-        )}
+        <div className="pt-4 border-t border-border-subtle">
+          {formatResult()}
+        </div>
 
         <div className="pt-4 border-t border-border-subtle flex items-center gap-2">
           <span className="text-sm text-text-tertiary">Network:</span>
-          <NetworkBadge network={wallet.network} />
+          <NetworkBadge network={data.network} />
         </div>
       </div>
     </InfoCard>

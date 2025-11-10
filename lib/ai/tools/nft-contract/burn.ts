@@ -12,7 +12,7 @@ import { getCurrentNetwork } from '@/lib/stellar/config';
 export const nftBurn = tool({
   description: 'Burn (destroy) an NFT.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     from: z.string().describe('The owner address'),
     tokenId: z.string().describe('The token ID to burn'),
   }),

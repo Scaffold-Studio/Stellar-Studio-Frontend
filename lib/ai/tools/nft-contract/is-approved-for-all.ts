@@ -13,7 +13,7 @@ import { createReadOnlyWallet } from '@/lib/stellar/read-only-wallet';
 export const nftIsApprovedForAll = tool({
   description: 'Check if operator is approved for all NFTs of an owner.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     owner: z.string().describe('The owner address'),
     operator: z.string().describe('The operator address'),
   }),

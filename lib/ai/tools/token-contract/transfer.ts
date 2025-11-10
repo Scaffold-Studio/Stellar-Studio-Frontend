@@ -15,9 +15,9 @@ export const tokenTransfer = tool({
   Use when user wants to send or transfer tokens.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The token contract address'),
-    from: z.string().describe('The sender address'),
-    to: z.string().describe('The recipient address'),
+    contractAddress: z.string().describe('The token CONTRACT address (starts with C, e.g., CBOY...). This is the token contract returned from deployment, NOT a wallet address (which starts with G).'),
+    from: z.string().describe('The sender wallet address (starts with G)'),
+    to: z.string().describe('The recipient wallet address (starts with G)'),
     amount: z.string().describe('The amount to transfer'),
   }),
 

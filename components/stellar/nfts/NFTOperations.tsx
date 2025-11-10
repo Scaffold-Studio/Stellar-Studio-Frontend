@@ -7,17 +7,11 @@
 
 'use client';
 
-import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Image as ImageIcon, ArrowRightLeft, CheckCircle, Flame, Plus, Loader2, AlertCircle } from 'lucide-react';
+import { Image as ImageIcon, ArrowRightLeft, CheckCircle, Flame, Plus } from 'lucide-react';
 import { useStellarWallet } from '@/providers/StellarWalletProvider';
-import { useContractCall } from '@/lib/stellar/hooks/useContractCall';
-import { NFTContractClient } from '@/lib/stellar/clients/NFTContractClient';
 import { AddressDisplay } from '@/components/shared/AddressDisplay';
 import { NetworkBadge } from '@/components/shared/NetworkBadge';
-import TransactionReceipt from '@/components/stellar/TransactionReceipt';
 
 type OperationType =
   | 'mint'
@@ -82,71 +76,6 @@ export default function NFTOperations({
 }: NFTOperationsProps) {
   const Icon = OPERATION_ICONS[operationType];
   const wallet = useStellarWallet();
-  const { execute, isLoading, hash, error, status, result } = useContractCall({
-    contractAddress,
-    operation: operationType,
-  });
-  const [success, setSuccess] = useState(false);
-
-  const handleOperation = async () => {
-    try {
-      setSuccess(false);
-
-      // Initialize client
-      const client = new NFTContractClient(contractAddress, wallet);
-
-      // Build assembled transaction based on operation type
-      let assembled;
-      const numericTokenId = typeof tokenId === 'string' ? parseInt(tokenId, 10) : tokenId;
-
-      switch (operationType) {
-        case 'mint':
-          if (!to) throw new Error('Missing required parameters');
-          assembled = await client.mint(to);
-          break;
-
-        case 'transfer':
-          if (!from || !to || numericTokenId === undefined) throw new Error('Missing required parameters');
-          assembled = await client.transfer(from, to, numericTokenId);
-          break;
-
-        case 'transfer-from':
-          if (!spender || !from || !to || numericTokenId === undefined) throw new Error('Missing required parameters');
-          assembled = await client.transferFrom(spender, from, to, numericTokenId);
-          break;
-
-        case 'approve':
-          if (!approver || !to || numericTokenId === undefined || !liveUntilLedger) throw new Error('Missing required parameters');
-          assembled = await client.approve(approver, to, numericTokenId, liveUntilLedger);
-          break;
-
-        case 'approve-for-all':
-          if (!owner || !operator || !liveUntilLedger) throw new Error('Missing required parameters');
-          assembled = await client.approveForAll(owner, operator, liveUntilLedger);
-          break;
-
-        case 'burn':
-          if (!from || numericTokenId === undefined) throw new Error('Missing required parameters');
-          assembled = await client.burn(from, numericTokenId);
-          break;
-
-        case 'burn-from':
-          if (!spender || !from || numericTokenId === undefined) throw new Error('Missing required parameters');
-          assembled = await client.burnFrom(spender, from, numericTokenId);
-          break;
-
-        default:
-          throw new Error(`Unknown operation type: ${operationType}`);
-      }
-
-      // Execute transaction
-      await execute(assembled);
-      setSuccess(true);
-    } catch (err: any) {
-      console.error('[NFTOperations] Error:', err);
-      // Error is handled by useContractCall hook
-    }
-  };
 
   return (
     <Card className="w-full bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-indigo-500/10 border-cyan-500/30">
@@ -284,43 +213,6 @@ export default function NFTOperations({
         <div className="pt-4 border-t border-zinc-700">
           <NetworkBadge network={wallet.network} />
         </div>
-
-        {/* Action Button */}
-        <Button
-          onClick={handleOperation}
-          disabled={isLoading || !wallet.publicKey}
-          className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="size-4 mr-2 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            `Execute ${OPERATION_LABELS[operationType]}`
-          )}
-        </Button>
-
-        {/* Transaction Receipt */}
-        {hash && (
-          <TransactionReceipt
-            hash={hash}
-            contractAddress={contractAddress}
-            operation={operationType}
-            status={status === 'timeout' ? 'failed' : status || 'pending'}
-            network={wallet.network}
-            result={result}
-            error={error}
-          />
-        )}
-
-        {/* Error Message (if no hash yet) */}
-        {error && !hash && (
-          <Alert variant="destructive">
-            <AlertCircle className="size-4" />
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
       </CardContent>
     </Card>
   );

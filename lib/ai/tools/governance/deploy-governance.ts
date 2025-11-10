@@ -93,7 +93,10 @@ export const deployGovernance = tool({
         comment: `Deploy MerkleVoting governance on ${getCurrentNetwork()}`,
       };
 
-      const message = `MerkleVoting governance prepared with ${voterAddresses.length} eligible voters (merkle root auto-generated). Please sign in your wallet.`;
+      const message = `MerkleVoting governance prepared with ${voterAddresses.length} eligible voters (merkle root auto-generated). Please sign in your wallet.
+
+After signing, the transaction will return the GOVERNANCE CONTRACT ADDRESS (starts with C).
+You'll need this contract address to interact with the governance contract (vote, check results, etc.).`;
 
       return {
         success: true,

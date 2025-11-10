@@ -12,7 +12,7 @@ import { getCurrentNetwork } from '@/lib/stellar/config';
 export const nftMint = tool({
   description: 'Mint a new NFT. Owner-only operation.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     to: z.string().describe('The recipient address'),
     tokenId: z.string().optional().describe('Optional token ID (auto-generated if omitted)'),
   }),

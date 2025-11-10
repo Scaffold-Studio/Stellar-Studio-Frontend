@@ -13,7 +13,7 @@ import { createReadOnlyWallet } from '@/lib/stellar/read-only-wallet';
 export const nftBalance = tool({
   description: 'Get NFT balance (number of NFTs owned) for an account.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     account: z.string().describe('The account address'),
   }),
   execute: async ({ contractAddress, account }) => {

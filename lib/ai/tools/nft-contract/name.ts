@@ -13,7 +13,7 @@ import { createReadOnlyWallet } from '@/lib/stellar/read-only-wallet';
 export const nftName = tool({
   description: 'Get NFT collection name.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
   }),
   execute: async ({ contractAddress }) => {
     try {
@@ -34,14 +34,14 @@ export const nftName = tool({
           name: name || '',
           network,
         },
-        message: `NFT Collection Name: ${name || 'Not set'}`,
+        message: `NFT Collection Name: ${name}`,
       };
     } catch (error: any) {
       console.error('[nftName] Error:', error);
       return {
         success: false,
         error: error.message,
-        message: `Failed to query NFT collection name: ${error.message}`,
+        message: `Failed to query NFT collection name: ${error.message}. Contract may not exist at ${contractAddress}`,
       };
     }
   },

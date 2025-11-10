@@ -12,7 +12,7 @@ import { getCurrentNetwork } from '@/lib/stellar/config';
 export const nftApproveForAll = tool({
   description: 'Approve operator for all NFTs of owner.',
   inputSchema: z.object({
-    contractAddress: z.string().describe('The NFT contract address'),
+    contractAddress: z.string().describe('The NFT CONTRACT address (starts with C, e.g., CBDB...). This is the NFT contract returned from deployment, NOT a wallet address (which starts with G).'),
     owner: z.string().describe('The NFT owner'),
     operator: z.string().describe('The operator to approve'),
     approved: z.boolean().describe('True to approve, false to revoke'),

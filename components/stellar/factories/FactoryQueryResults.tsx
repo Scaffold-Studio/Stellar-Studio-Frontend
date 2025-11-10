@@ -7,18 +7,9 @@
 
 'use client';
 
-import { useEffect } from 'react';
 import { useStellarWallet } from '@/hooks/useStellarWallet';
-import { useContractQuery } from '@/lib/stellar/hooks/useContractQuery';
-import {
-  TokenFactoryClient,
-  NFTFactoryClient,
-  GovernanceFactoryClient,
-} from '@/lib/stellar/clients';
-import type { TokenType, NFTType, GovernanceType } from '@/lib/stellar/clients';
 import { AddressDisplay } from '@/components/shared/AddressDisplay';
 import { InfoCard } from '@/components/shared/InfoCard';
-import { LoadingCard } from '@/components/shared/LoadingCard';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -73,141 +64,23 @@ const FACTORY_CONFIG = {
   },
 } as const;
 
-const createTokenType = (type: string): TokenType => ({
-  tag: type as TokenType['tag'],
-  values: undefined,
-}) as TokenType;
-
-const createNFTType = (type: string): NFTType => ({
-  tag: type as NFTType['tag'],
-  values: undefined,
-}) as NFTType;
-
-const createGovernanceType = (type: string): GovernanceType => ({
-  tag: type as GovernanceType['tag'],
-  values: undefined,
-}) as GovernanceType;
-
 export default function FactoryQueryResults({
   factoryType,
   queryType,
   filters = {},
-  data: propData,
+  data,
 }: FactoryQueryResultsProps) {
   const wallet = useStellarWallet();
-  const { query, isLoading, data: queryData, error } = useContractQuery<any>();
-
   const config = FACTORY_CONFIG[factoryType];
-  
-  // Use propData if provided (from tool output), otherwise use queryData
-  const data = propData !== undefined ? propData : queryData;
 
-  useEffect(() => {
-    // Skip fetching if data is already provided
-    if (propData !== undefined) return;
-    
-    const fetchData = async () => {
-      if (!wallet.publicKey) return;
-
-      try {
-        let assembled;
-
-        if (factoryType === 'token') {
-          const client = new TokenFactoryClient(wallet);
-
-          switch (queryType) {
-            case 'all':
-              assembled = await client.getDeployedTokens();
-              break;
-            case 'by-type':
-              if (!filters.type) throw new Error('Type filter required');
-              assembled = await client.getTokensByType(createTokenType(filters.type));
-              break;
-            case 'by-admin':
-              if (!filters.admin) throw new Error('Admin filter required');
-              assembled = await client.getTokensByAdmin(filters.admin);
-              break;
-            case 'count':
-              assembled = await client.getTokenCount();
-              break;
-            default:
-              throw new Error(`Query type "${queryType}" not supported for token factory`);
-          }
-        } else if (factoryType === 'nft') {
-          const client = new NFTFactoryClient(wallet);
-
-          switch (queryType) {
-            case 'all':
-              assembled = await client.getDeployedNFTs();
-              break;
-            case 'by-type':
-              if (!filters.type) throw new Error('Type filter required');
-              assembled = await client.getNFTsByType(createNFTType(filters.type));
-              break;
-            case 'by-owner':
-              if (!filters.owner) throw new Error('Owner filter required');
-              assembled = await client.getNFTsByOwner(filters.owner);
-              break;
-            case 'count':
-              assembled = await client.getNFTCount();
-              break;
-            default:
-              throw new Error(`Query type "${queryType}" not supported for nft factory`);
-          }
-        } else if (factoryType === 'governance') {
-          const client = new GovernanceFactoryClient(wallet);
-
-          switch (queryType) {
-            case 'all':
-              assembled = await client.getDeployedGovernance();
-              break;
-            case 'by-type':
-              if (!filters.type) throw new Error('Type filter required');
-              assembled = await client.getGovernanceByType(createGovernanceType(filters.type));
-              break;
-            case 'by-admin':
-              if (!filters.admin) throw new Error('Admin filter required');
-              assembled = await client.getGovernanceByAdmin(filters.admin);
-              break;
-            case 'count':
-              assembled = await client.getGovernanceCount();
-              break;
-            default:
-              throw new Error(`Query type "${queryType}" not supported for governance factory`);
-          }
-        } else {
-          throw new Error(`Unknown factory type: ${factoryType}`);
-        }
-
-        await query(assembled as any);
-      } catch (err: any) {
-        console.error('Error fetching factory data:', err);
-      }
-    };
-
-    fetchData();
-  }, [factoryType, queryType, filters, wallet.publicKey, propData]);
-
-  if (!wallet.publicKey) {
+  // Pure presentational component - only displays data passed via props
+  if (!data) {
     return (
       <Alert variant="destructive" className="bg-accent-error/10 border-accent-error/30">
         <AlertCircle className="size-4" />
         <AlertDescription className="text-text-secondary">
-          Please connect your wallet to view factory data
+          No data available
         </AlertDescription>
-      </Alert>
-    );
-  }
-
-  if (isLoading) {
-    return <LoadingCard title={`${config.label} Factory Query`} lines={4} />;
-  }
-
-  if (error) {
-    return (
-      <Alert variant="destructive" className="bg-accent-error/10 border-accent-error/30">
-        <AlertCircle className="size-4" />
-        <AlertDescription className="text-text-secondary">{error}</AlertDescription>
       </Alert>
     );
   }

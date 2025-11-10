@@ -17,7 +17,7 @@ export const governanceGetVoteResults = tool({
   Returns votes FOR and votes AGAINST.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The governance contract address'),
+    contractAddress: z.string().describe('The governance CONTRACT address (starts with C, e.g., CCRQ...). This is the governance contract returned from deployment, NOT a wallet address (which starts with G).'),
   }),
 
   execute: async ({ contractAddress }) => {

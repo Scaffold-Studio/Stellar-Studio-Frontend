@@ -17,7 +17,7 @@ export const tokenDecimals = tool({
   Use when user asks about token decimals or precision.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The token contract address'),
+    contractAddress: z.string().describe('The token CONTRACT address (starts with C, e.g., CBOY...). This is the token contract returned from deployment, NOT a wallet address (which starts with G).'),
   }),
 
   execute: async ({ contractAddress }) => {

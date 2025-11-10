@@ -19,7 +19,7 @@ export const governanceVote = tool({
   - Merkle proof (array of hashes)`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The governance contract address'),
+    contractAddress: z.string().describe('The governance CONTRACT address (starts with C, e.g., CCRQ...). This is the governance contract returned from deployment, NOT a wallet address (which starts with G).'),
     voteData: z.object({
       index: z.number().describe('Voter index in merkle tree'),
       account: z.string().describe('Voter address'),

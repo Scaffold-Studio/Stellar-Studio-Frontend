@@ -14,7 +14,7 @@ export const tokenApprove = tool({
   Allows delegation of token spending rights.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The token contract address'),
+    contractAddress: z.string().describe('The token CONTRACT address (starts with C, e.g., CBOY...). This is the token contract returned from deployment, NOT a wallet address (which starts with G).'),
     owner: z.string().describe('The token owner address'),
     spender: z.string().describe('The spender to approve'),
     amount: z.string().describe('The amount to approve'),

@@ -17,7 +17,7 @@ export const tokenTotalSupply = tool({
   Use when user asks about total supply or circulating supply.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The token contract address'),
+    contractAddress: z.string().describe('The token CONTRACT address (starts with C, e.g., CBOY...). This is the token contract returned from deployment, NOT a wallet address (which starts with G).'),
   }),
 
   execute: async ({ contractAddress }) => {
@@ -31,6 +31,9 @@ export const tokenTotalSupply = tool({
       const totalSupply = simulation.result;
 
       console.log('[tokenTotalSupply] Query result:', totalSupply);
+
+      // Note: Total supply of 0 could be legitimate, so we don't validate here
+      // We rely on name/symbol checks to detect non-existent contracts
 
       return {
         success: true,
@@ -46,7 +49,7 @@ export const tokenTotalSupply = tool({
       return {
         success: false,
         error: error.message,
-        message: `Failed to query total supply: ${error.message}`,
+        message: `Failed to query total supply: ${error.message}. Contract may not exist at ${contractAddress}`,
       };
     }
   },

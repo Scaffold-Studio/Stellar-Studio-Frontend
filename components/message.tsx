@@ -430,10 +430,10 @@ const PurePreviewMessage = ({
                     const { output } = part as { output: any };
                     return (
                       <div key={toolCallId}>
-                        <FactoryQueryResults 
-                          factoryType="token" 
-                          queryType="all" 
-                          data={output.data?.tokens || []}
+                        <FactoryQueryResults
+                          factoryType="token"
+                          queryType="all"
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -459,6 +459,7 @@ const PurePreviewMessage = ({
                           factoryType="token"
                           queryType="by-type"
                           filters={{ type: output.data.tokenType }}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -484,6 +485,7 @@ const PurePreviewMessage = ({
                           factoryType="token"
                           queryType="by-admin"
                           filters={{ admin: output.data.admin }}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -502,9 +504,14 @@ const PurePreviewMessage = ({
                     );
                   }
                   if (state === "output-available" && "output" in part) {
+                    const { output } = part as { output: any };
                     return (
                       <div key={toolCallId}>
-                        <FactoryQueryResults factoryType="token" queryType="count" />
+                        <FactoryQueryResults
+                          factoryType="token"
+                          queryType="count"
+                          data={output.data}
+                        />
                       </div>
                     );
                   }
@@ -526,10 +533,10 @@ const PurePreviewMessage = ({
                     const { output } = part as { output: any };
                     return (
                       <div key={toolCallId}>
-                        <FactoryQueryResults 
-                          factoryType="nft" 
+                        <FactoryQueryResults
+                          factoryType="nft"
                           queryType="all"
-                          data={output.data?.nfts || []}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -555,6 +562,7 @@ const PurePreviewMessage = ({
                           factoryType="nft"
                           queryType="by-type"
                           filters={{ type: output.data.nftType }}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -580,6 +588,7 @@ const PurePreviewMessage = ({
                           factoryType="nft"
                           queryType="by-owner"
                           filters={{ owner: output.data.owner }}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -598,9 +607,14 @@ const PurePreviewMessage = ({
                     );
                   }
                   if (state === "output-available" && "output" in part) {
+                    const { output } = part as { output: any };
                     return (
                       <div key={toolCallId}>
-                        <FactoryQueryResults factoryType="nft" queryType="count" />
+                        <FactoryQueryResults
+                          factoryType="nft"
+                          queryType="count"
+                          data={output.data}
+                        />
                       </div>
                     );
                   }
@@ -622,10 +636,10 @@ const PurePreviewMessage = ({
                     const { output } = part as { output: any };
                     return (
                       <div key={toolCallId}>
-                        <FactoryQueryResults 
-                          factoryType="governance" 
+                        <FactoryQueryResults
+                          factoryType="governance"
                           queryType="all"
-                          data={output.data?.governance || []}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -651,6 +665,7 @@ const PurePreviewMessage = ({
                           factoryType="governance"
                           queryType="by-type"
                           filters={{ type: output.data.governanceType }}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -676,6 +691,7 @@ const PurePreviewMessage = ({
                           factoryType="governance"
                           queryType="by-admin"
                           filters={{ admin: output.data.admin }}
+                          data={output.data || []}
                         />
                       </div>
                     );
@@ -694,9 +710,14 @@ const PurePreviewMessage = ({
                     );
                   }
                   if (state === "output-available" && "output" in part) {
+                    const { output } = part as { output: any };
                     return (
                       <div key={toolCallId}>
-                        <FactoryQueryResults factoryType="governance" queryType="count" />
+                        <FactoryQueryResults
+                          factoryType="governance"
+                          queryType="count"
+                          data={output.data}
+                        />
                       </div>
                     );
                   }
@@ -725,8 +746,8 @@ const PurePreviewMessage = ({
                       <div key={toolCallId}>
                         <TokenContractInfo
                           queryType="balance"
-                          contractAddress={data.contractAddress}
-                          account={data.account}
+                          data={data}
+                          error={output.success === false ? output.error : undefined}
                         />
                       </div>
                     );
@@ -751,7 +772,8 @@ const PurePreviewMessage = ({
                       <div key={toolCallId}>
                         <TokenContractInfo
                           queryType="total-supply"
-                          contractAddress={data.contractAddress}
+                          data={data}
+                          error={output.success === false ? output.error : undefined}
                         />
                       </div>
                     );
@@ -776,9 +798,8 @@ const PurePreviewMessage = ({
                       <div key={toolCallId}>
                         <TokenContractInfo
                           queryType="allowance"
-                          contractAddress={data.contractAddress}
-                          owner={data.owner}
-                          spender={data.spender}
+                          data={data}
+                          error={output.success === false ? output.error : undefined}
                         />
                       </div>
                     );
@@ -803,7 +824,8 @@ const PurePreviewMessage = ({
                       <div key={toolCallId}>
                         <TokenContractInfo
                           queryType="decimals"
-                          contractAddress={data.contractAddress}
+                          data={data}
+                          error={output.success === false ? output.error : undefined}
                         />
                       </div>
                     );
@@ -828,7 +850,8 @@ const PurePreviewMessage = ({
                       <div key={toolCallId}>
                         <TokenContractInfo
                           queryType="name"
-                          contractAddress={data.contractAddress}
+                          data={data}
+                          error={output.success === false ? output.error : undefined}
                         />
                       </div>
                     );
@@ -853,7 +876,8 @@ const PurePreviewMessage = ({
                       <div key={toolCallId}>
                         <TokenContractInfo
                           queryType="symbol"
-                          contractAddress={data.contractAddress}
+                          data={data}
+                          error={output.success === false ? output.error : undefined}
                         />
                       </div>
                     );
@@ -878,7 +902,8 @@ const PurePreviewMessage = ({
                       <div key={toolCallId}>
                         <TokenContractInfo
                           queryType="paused"
-                          contractAddress={data.contractAddress}
+                          data={data}
+                          error={output.success === false ? output.error : undefined}
                         />
                       </div>
                     );
@@ -899,16 +924,21 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="transfer"
-                          contractAddress={output.data.contractAddress}
-                          to={output.data.to}
-                          amount={output.data.amount}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="transfer"
+                              contractAddress={output.data.contractAddress}
+                              from={output.data.from}
+                              to={output.data.to}
+                              amount={output.data.amount}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -925,17 +955,22 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="transfer-from"
-                          contractAddress={output.data.contractAddress}
-                          from={output.data.from}
-                          to={output.data.to}
-                          amount={output.data.amount}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="transfer-from"
+                              contractAddress={output.data.contractAddress}
+                              spender={output.data.spender}
+                              from={output.data.from}
+                              to={output.data.to}
+                              amount={output.data.amount}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -952,16 +987,22 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="approve"
-                          contractAddress={output.data.contractAddress}
-                          spender={output.data.spender}
-                          amount={output.data.amount}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="approve"
+                              contractAddress={output.data.contractAddress}
+                              owner={output.data.owner}
+                              spender={output.data.spender}
+                              amount={output.data.amount}
+                              liveUntilLedger={output.data.liveUntilLedger}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -978,16 +1019,20 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="mint"
-                          contractAddress={output.data.contractAddress}
-                          to={output.data.to}
-                          amount={output.data.amount}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="mint"
+                              contractAddress={output.data.contractAddress}
+                              account={output.data.account}
+                              amount={output.data.amount}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -1004,15 +1049,20 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="burn"
-                          contractAddress={output.data.contractAddress}
-                          amount={output.data.amount}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="burn"
+                              contractAddress={output.data.contractAddress}
+                              from={output.data.from}
+                              amount={output.data.amount}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -1029,16 +1079,21 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="burn-from"
-                          contractAddress={output.data.contractAddress}
-                          from={output.data.from}
-                          amount={output.data.amount}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="burn-from"
+                              contractAddress={output.data.contractAddress}
+                              spender={output.data.spender}
+                              from={output.data.from}
+                              amount={output.data.amount}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -1055,14 +1110,19 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="pause"
-                          contractAddress={output.data.contractAddress}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="pause"
+                              contractAddress={output.data.contractAddress}
+                              caller={output.data.caller}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -1079,14 +1139,19 @@ const PurePreviewMessage = ({
                   }
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (
-                      <div key={toolCallId}>
-                        <TokenOperations
-                          operationType="unpause"
-                          contractAddress={output.data.contractAddress}
-                        />
-                      </div>
-                    );
+                    if (output.success && output.data && output.transaction) {
+                      return (
+                        <div key={toolCallId}>
+                          <TransactionExecutor transaction={output.transaction}>
+                            <TokenOperations
+                              operationType="unpause"
+                              contractAddress={output.data.contractAddress}
+                              caller={output.data.caller}
+                            />
+                          </TransactionExecutor>
+                        </div>
+                      );
+                    }
                   }
                 }
               }
@@ -1103,7 +1168,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="balance" contractAddress={data.contractAddress} account={data.account} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="balance" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1115,7 +1180,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="owner-of" contractAddress={data.contractAddress} tokenId={data.tokenId} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="owner-of" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1127,7 +1192,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="get-approved" contractAddress={data.contractAddress} tokenId={data.tokenId} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="get-approved" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1139,7 +1204,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="is-approved-for-all" contractAddress={data.contractAddress} owner={data.owner} operator={data.operator} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="is-approved-for-all" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1151,7 +1216,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="token-uri" contractAddress={data.contractAddress} tokenId={data.tokenId} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="token-uri" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1163,7 +1228,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="name" contractAddress={data.contractAddress} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="name" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1175,7 +1240,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="symbol" contractAddress={data.contractAddress} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="symbol" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1187,7 +1252,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="total-supply" contractAddress={data.contractAddress} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="total-supply" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1199,7 +1264,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="get-owner-token-id" contractAddress={data.contractAddress} account={data.account} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="get-owner-token-id" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1211,7 +1276,7 @@ const PurePreviewMessage = ({
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
                     const data = extractToolData(output);
-                    return (<div key={toolCallId}><NFTContractInfo queryType="get-token-id" contractAddress={data.contractAddress} /></div>);
+                    return (<div key={toolCallId}><NFTContractInfo queryType="get-token-id" data={data} error={output.success === false ? output.error : undefined} /></div>);
                   }
                 }
               }
@@ -1223,7 +1288,9 @@ const PurePreviewMessage = ({
                   if (state === "input-available") return (<div key={toolCallId}><ToolCallLoader loadingMessage="Preparing NFT mint..." /></div>);
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (<div key={toolCallId}><NFTOperations operationType="mint" contractAddress={output.data.contractAddress} to={output.data.to} tokenUri={output.data.tokenUri} /></div>);
+                    if (output.success && output.data && output.transaction) {
+                      return (<div key={toolCallId}><TransactionExecutor transaction={output.transaction}><NFTOperations operationType="mint" contractAddress={output.data.contractAddress} to={output.data.to} tokenUri={output.data.tokenUri} /></TransactionExecutor></div>);
+                    }
                   }
                 }
               }
@@ -1234,7 +1301,9 @@ const PurePreviewMessage = ({
                   if (state === "input-available") return (<div key={toolCallId}><ToolCallLoader loadingMessage="Preparing NFT transfer..." /></div>);
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (<div key={toolCallId}><NFTOperations operationType="transfer" contractAddress={output.data.contractAddress} to={output.data.to} tokenId={output.data.tokenId} /></div>);
+                    if (output.success && output.data && output.transaction) {
+                      return (<div key={toolCallId}><TransactionExecutor transaction={output.transaction}><NFTOperations operationType="transfer" contractAddress={output.data.contractAddress} from={output.data.from} to={output.data.to} tokenId={output.data.tokenId} /></TransactionExecutor></div>);
+                    }
                   }
                 }
               }
@@ -1245,7 +1314,9 @@ const PurePreviewMessage = ({
                   if (state === "input-available") return (<div key={toolCallId}><ToolCallLoader loadingMessage="Preparing transfer from..." /></div>);
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (<div key={toolCallId}><NFTOperations operationType="transfer-from" contractAddress={output.data.contractAddress} from={output.data.from} to={output.data.to} tokenId={output.data.tokenId} /></div>);
+                    if (output.success && output.data && output.transaction) {
+                      return (<div key={toolCallId}><TransactionExecutor transaction={output.transaction}><NFTOperations operationType="transfer-from" contractAddress={output.data.contractAddress} spender={output.data.spender} from={output.data.from} to={output.data.to} tokenId={output.data.tokenId} /></TransactionExecutor></div>);
+                    }
                   }
                 }
               }
@@ -1256,7 +1327,9 @@ const PurePreviewMessage = ({
                   if (state === "input-available") return (<div key={toolCallId}><ToolCallLoader loadingMessage="Preparing NFT approval..." /></div>);
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (<div key={toolCallId}><NFTOperations operationType="approve" contractAddress={output.data.contractAddress} to={output.data.to} tokenId={output.data.tokenId} /></div>);
+                    if (output.success && output.data && output.transaction) {
+                      return (<div key={toolCallId}><TransactionExecutor transaction={output.transaction}><NFTOperations operationType="approve" contractAddress={output.data.contractAddress} approver={output.data.approver} to={output.data.to} tokenId={output.data.tokenId} liveUntilLedger={output.data.liveUntilLedger} /></TransactionExecutor></div>);
+                    }
                   }
                 }
               }
@@ -1267,7 +1340,9 @@ const PurePreviewMessage = ({
                   if (state === "input-available") return (<div key={toolCallId}><ToolCallLoader loadingMessage="Preparing approval for all..." /></div>);
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (<div key={toolCallId}><NFTOperations operationType="approve-for-all" contractAddress={output.data.contractAddress} operator={output.data.operator} approved={output.data.approved} /></div>);
+                    if (output.success && output.data && output.transaction) {
+                      return (<div key={toolCallId}><TransactionExecutor transaction={output.transaction}><NFTOperations operationType="approve-for-all" contractAddress={output.data.contractAddress} owner={output.data.owner} operator={output.data.operator} liveUntilLedger={output.data.liveUntilLedger} /></TransactionExecutor></div>);
+                    }
                   }
                 }
               }
@@ -1278,7 +1353,9 @@ const PurePreviewMessage = ({
                   if (state === "input-available") return (<div key={toolCallId}><ToolCallLoader loadingMessage="Preparing NFT burn..." /></div>);
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (<div key={toolCallId}><NFTOperations operationType="burn" contractAddress={output.data.contractAddress} tokenId={output.data.tokenId} /></div>);
+                    if (output.success && output.data && output.transaction) {
+                      return (<div key={toolCallId}><TransactionExecutor transaction={output.transaction}><NFTOperations operationType="burn" contractAddress={output.data.contractAddress} from={output.data.from} tokenId={output.data.tokenId} /></TransactionExecutor></div>);
+                    }
                   }
                 }
               }
@@ -1289,7 +1366,9 @@ const PurePreviewMessage = ({
                   if (state === "input-available") return (<div key={toolCallId}><ToolCallLoader loadingMessage="Preparing burn from..." /></div>);
                   if (state === "output-available" && "output" in part) {
                     const { output } = part as { output: any };
-                    return (<div key={toolCallId}><NFTOperations operationType="burn-from" contractAddress={output.data.contractAddress} from={output.data.from} tokenId={output.data.tokenId} /></div>);
+                    if (output.success && output.data && output.transaction) {
+                      return (<div key={toolCallId}><TransactionExecutor transaction={output.transaction}><NFTOperations operationType="burn-from" contractAddress={output.data.contractAddress} spender={output.data.spender} from={output.data.from} tokenId={output.data.tokenId} /></TransactionExecutor></div>);
+                    }
                   }
                 }
               }

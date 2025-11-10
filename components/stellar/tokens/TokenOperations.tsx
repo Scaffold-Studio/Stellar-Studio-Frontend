@@ -7,17 +7,11 @@
 
 'use client';
 
-import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Coins, ArrowRightLeft, CheckCircle, Flame, Pause, Play, Loader2, AlertCircle } from 'lucide-react';
+import { Coins, ArrowRightLeft, CheckCircle, Flame, Pause, Play } from 'lucide-react';
 import { useStellarWallet } from '@/providers/StellarWalletProvider';
-import { useContractCall } from '@/lib/stellar/hooks/useContractCall';
-import { TokenContractClient } from '@/lib/stellar/clients/TokenContractClient';
 import { AddressDisplay } from '@/components/shared/AddressDisplay';
 import { NetworkBadge } from '@/components/shared/NetworkBadge';
-import TransactionReceipt from '@/components/stellar/TransactionReceipt';
 
 type OperationType =
   | 'transfer'
@@ -83,75 +77,6 @@ export default function TokenOperations({
 }: TokenOperationsProps) {
   const Icon = OPERATION_ICONS[operationType];
   const wallet = useStellarWallet();
-  const { execute, isLoading, hash, error, status, result } = useContractCall({
-    contractAddress,
-    operation: operationType,
-  });
-  const [success, setSuccess] = useState(false);
-
-  const handleOperation = async () => {
-    try {
-      setSuccess(false);
-
-      // Initialize client
-      const client = new TokenContractClient(contractAddress, wallet);
-
-      // Build assembled transaction based on operation type
-      let assembled;
-
-      switch (operationType) {
-        case 'transfer':
-          if (!from || !to || !amount) throw new Error('Missing required parameters');
-          assembled = await client.transfer(from, to, amount);
-          break;
-
-        case 'transfer-from':
-          if (!spender || !from || !to || !amount) throw new Error('Missing required parameters');
-          assembled = await client.transferFrom(spender, from, to, amount);
-          break;
-
-        case 'approve':
-          if (!owner || !spender || !amount || !liveUntilLedger) throw new Error('Missing required parameters');
-          assembled = await client.approve(owner, spender, amount, liveUntilLedger);
-          break;
-
-        case 'mint':
-          if (!account || !amount) throw new Error('Missing required parameters');
-          assembled = await client.mint(account, amount);
-          break;
-
-        case 'burn':
-          if (!from || !amount) throw new Error('Missing required parameters');
-          assembled = await client.burn(from, amount);
-          break;
-
-        case 'burn-from':
-          if (!spender || !from || !amount) throw new Error('Missing required parameters');
-          assembled = await client.burnFrom(spender, from, amount);
-          break;
-
-        case 'pause':
-          if (!caller) throw new Error('Missing required parameters');
-          assembled = await client.pause(caller);
-          break;
-
-        case 'unpause':
-          if (!caller) throw new Error('Missing required parameters');
-          assembled = await client.unpause(caller);
-          break;
-
-        default:
-          throw new Error(`Unknown operation type: ${operationType}`);
-      }
-
-      // Execute transaction
-      await execute(assembled);
-      setSuccess(true);
-    } catch (err: any) {
-      console.error('[TokenOperations] Error:', err);
-      // Error is handled by useContractCall hook
-    }
-  };
 
   return (
     <Card className="w-full bg-gradient-to-br from-purple-500/10 via-indigo-500/10 to-blue-500/10 border-purple-500/30">
@@ -267,43 +192,6 @@ export default function TokenOperations({
         <div className="pt-4 border-t border-zinc-700">
           <NetworkBadge network={wallet.network} />
         </div>
-
-        {/* Action Button */}
-        <Button
-          onClick={handleOperation}
-          disabled={isLoading || !wallet.publicKey}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="size-4 mr-2 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            `Execute ${OPERATION_LABELS[operationType]}`
-          )}
-        </Button>
-
-        {/* Transaction Receipt */}
-        {hash && (
-          <TransactionReceipt
-            hash={hash}
-            contractAddress={contractAddress}
-            operation={operationType}
-            status={status === 'timeout' ? 'failed' : status || 'pending'}
-            network={wallet.network}
-            result={result}
-            error={error}
-          />
-        )}
-
-        {/* Error Message (if no hash yet) */}
-        {error && !hash && (
-          <Alert variant="destructive">
-            <AlertCircle className="size-4" />
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
       </CardContent>
     </Card>
   );

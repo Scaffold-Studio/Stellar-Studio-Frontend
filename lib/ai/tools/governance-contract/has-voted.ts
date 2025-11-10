@@ -15,7 +15,7 @@ export const governanceHasVoted = tool({
   description: `Check if an address/index has already voted.`,
 
   inputSchema: z.object({
-    contractAddress: z.string().describe('The governance contract address'),
+    contractAddress: z.string().describe('The governance CONTRACT address (starts with C, e.g., CCRQ...). This is the governance contract returned from deployment, NOT a wallet address (which starts with G).'),
     index: z.number().describe('Voter index to check'),
   }),
 

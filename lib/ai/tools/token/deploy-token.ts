@@ -96,7 +96,10 @@ export const deployToken = tool({
       return {
         success: true,
         transaction,
-        message: `Token deployment prepared: ${name} (${symbol}). Please sign in your wallet.`,
+        message: `Token deployment prepared: ${name} (${symbol}). Please sign in your wallet.
+
+After signing, the transaction will return the TOKEN CONTRACT ADDRESS (starts with C).
+You'll need this contract address to interact with the token (transfer, mint, burn, etc.).`,
         data: {
           name,
           symbol,
@@ -104,6 +107,8 @@ export const deployToken = tool({
           initialSupply,
           tokenType,
           network: getCurrentNetwork(),
+          admin,
+          manager,
         },
       };
     } catch (error: any) {
